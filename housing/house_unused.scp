@@ -1,0 +1,296 @@
+[EOF]
+
+[FUNCTION f_house_timer_reset_all]
+local.p = <src.p>
+for 0 254
+	if (<serv.maplist.<dlocal._for>>)
+		src.p = 0,0,0,<dlocal._for>
+		serv.log processing map <dlocal._for>
+		src.f_house_timer_activate
+	endif
+endfor
+src.p = <local.p>
+
+[FUNCTION f_house_timer_activate]
+FORITEMS 7168
+	if (<type> == t_multi) || (<type> == t_multi_custom)
+		ref1 = <region.link>
+		ref1.timer = 60*60*24*<def.hs_can_decay>
+	endif
+ENDFOR
+
+/////////////////////////////
+
+[FUNCTION f_house_visitor_count]
+ref1 = <region.uid>
+if <ref1.isvalid> && !(<ref1.isowner <uid>> || <isgm>)	// <ref1.GetCoownerPos <uid>> >= 0 || <ref1.GetFriendPos <uid>> >= 0 
+	uid.<ref1.link>.more2 += 1
+endif
+
+[FUNCTION f_house_item_flip] // unused function?
+if !<argo>
+	src.sysmessage @32,,1 <def.HouseCtrl_<src.f_LangShow>_InvalTrg>
+	return 1
+endif
+ref1 = <src.region.uid>
+if (<argo.uid> == <src.uid>) || (<argo.isplayer>)
+	src.sysmessage @32,,1 You cannot flip that.
+	return 1
+elseif (<argo.link> == <ref1>)
+	src.sysmessage @32,,1 You cannot flip that.
+	return 1
+endif
+if (<argo.topobj.ischar>)
+	src.sysmessage @32,,1 That would be hillarious... but I am afraid we can't allow it.
+	return 1
+endif
+ref8 = <argo>
+ref8.flip
+return 1
+
+[FUNCTION f_house_item_flip]
+// log f_ISEMPTY f_flipitem <uid>
+if !<argo>
+	src.sysmessage @32,,1 <def.HouseCtrl_<src.f_LangShow>_InvalTrg>
+	return 1
+elseif !<argo.isitem>
+	return 1
+elseif (<argo.distance> > 2) && (!<argo.cont>)
+	src.sysmessage Target is too far away
+elseif (<argo.attr> & 08010) && !(0<argo.TAG.FLIP_PERMIT>)
+	src.sysmessage You can't flip static items
+elseif (<argo.link.f_istype t_multi> == 1)
+	src.sysmessage You can't flip locked items
+elseif !<argo.flip>
+	src.sysmessage This item is not flipable
+// elseif (<argo.type> == t_craft_fence) || (<argo.type> == t_craft_door)
+	// src.sysmessage You can't flip this item
+elseif (<argo.type> == t_anim_active)
+	src.sysmessage You can't flip this item
+elseif (<argo.tag0.dispid_switch>)
+	if !<ISEMPTY <argo.tag.dispid>>
+		timerfms 0 f_item_antiflip_sub <argo.uid>
+	else
+		src.sysmessage You can't flip this item
+	endif
+elseif !(<ISEMPTY <argo.tag.flip_next>>)
+	argo.id = <argo.tag.flip_next>
+	argo.update
+else
+	argo.flip
+	argo.update
+endif
+
+//////////////////Custom Placement check//////////////////
+
+[FUNCTION f_house_checkPlacement]
+serv.log f_house_checkPlacement
+ref1 = <link.owner>//Owner
+if !<ref1.uid>
+	return 1
+endif
+if <def.custom_placement>
+	if (<f_house_checkNearArea>)
+		REF1.SYSMESSAGE @,,1 You can't build a house in this area.
+		if !(<REF1.ISGM>)
+			link.redeed
+			return 1
+		endif
+	endif
+endif
+trysrc <ref1> DIALOG d_house_placement
+
+[FUNCTION f_house_checkNearArea]
+serv.log f_house_checkNearArea
+return 0
+ref1 = <region.uid>
+ARGS = <ref1.MULTIREGION>
+SERV.NEWNPC c_pig
+NEW.FLAGS=statf_invul|statf_insubstantial
+
+for 0 7
+	NEW.P = <ref1.P>
+	doswitch <LOCAL._FOR>
+		NEW.MOVE <ARGV0> <ARGV1>
+		NEW.MOVE 0 <ARGV1>
+		NEW.MOVE <ARGV2> <ARGV1>
+		NEW.MOVE <ARGV2> 0
+		NEW.MOVE <ARGV2> <ARGV3>
+		NEW.MOVE 0 <ARGV3>
+		NEW.MOVE <ARGV0> <ARGV3>
+		NEW.MOVE <ARGV0> 0
+	enddo
+	doswitch <LOCAL._FOR>
+		LOCAL.CLEAR=<NEW.CANMOVE nw>
+		LOCAL.CLEAR=<NEW.CANMOVE n>
+		LOCAL.CLEAR=<NEW.CANMOVE ne>
+		LOCAL.CLEAR=<NEW.CANMOVE e>
+		LOCAL.CLEAR=<NEW.CANMOVE se>
+		LOCAL.CLEAR=<NEW.CANMOVE s>
+		LOCAL.CLEAR=<NEW.CANMOVE sw>
+		LOCAL.CLEAR=<NEW.CANMOVE w>
+	enddo
+	if (<NEW.f_isOnRoad>) || !(<LOCAL.CLEAR>)
+		NEW.REMOVE
+		return 1
+	endif
+endfor
+
+for 0 7
+	NEW.P = <UID.<REGION.UID>.P>
+	doswitch <LOCAL._FOR>
+		NEW.MOVE <eval <ARGV0>+1> <eval <ARGV1>+1>
+		NEW.MOVE 0 <eval <ARGV1>+1>
+		NEW.MOVE <eval <ARGV2>-1> <eval <ARGV1>+1>
+		NEW.MOVE <eval <ARGV2>-1> 0
+		NEW.MOVE <eval <ARGV2>-1> <eval <ARGV3>-1>
+		NEW.MOVE 0 <eval <ARGV3>-1>
+		NEW.MOVE <eval <ARGV0>+1> <eval <ARGV3>-1>
+		NEW.MOVE <eval <ARGV0>+1> 0
+	enddo
+	if (<NEW.ISNEARTYPE t_tree 2>)
+		NEW.REMOVE
+		return 1
+	endif
+endfor
+
+	LOCAL.AREA=3 //<DEF.hs_PlaceMinDistArea>
+	for 0 7
+		NEW.P = <UID.<REGION.UID>.P>
+		doswitch <LOCAL._FOR>
+			NEW.MOVE <eval <ARGV0>+(<LOCAL.AREA>*-1)> <eval <ARGV1>+(<LOCAL.AREA>*-1)>
+			NEW.MOVE 0 <eval <ARGV1>+(<LOCAL.AREA>*-1)>
+			NEW.MOVE <eval <ARGV2>+<LOCAL.AREA>> <eval <ARGV1>+(<LOCAL.AREA>*-1)>
+			NEW.MOVE <eval <ARGV2>+<LOCAL.AREA>> 0
+			NEW.MOVE <eval <ARGV2>+<LOCAL.AREA>> <eval <ARGV3>+<LOCAL.AREA>>
+			NEW.MOVE 0 <eval <ARGV3>+<LOCAL.AREA>>
+			NEW.MOVE <eval <ARGV0>+(<LOCAL.AREA>*-1)> <eval <ARGV3>+<LOCAL.AREA>>
+			NEW.MOVE <eval <ARGV0>+(<LOCAL.AREA>*-1)> 0
+		enddo
+		if STRMATCH("t_multi*","<UID.<NEW.REGION.UID>.TYPE>")
+			NEW.REMOVE
+			return 2
+		endif
+	endfor
+	LOCAL.FRONT = <DEF.hs_PlaceMinDistFront>
+	for 0 5
+		NEW.P = <UID.<REGION.UID>.P>
+		doswitch <LOCAL._FOR>
+			NEW.MOVE <ARGV2> <eval <ARGV3>+<LOCAL.FRONT>>
+			NEW.MOVE 0 <eval <ARGV3>+<LOCAL.FRONT>>
+			NEW.MOVE <ARGV0> <eval <ARGV3>+<LOCAL.FRONT>>
+			NEW.MOVE <ARGV0> <eval <ARGV1>+(<LOCAL.FRONT>*-1)>
+			NEW.MOVE 0 <eval <ARGV1>+(<LOCAL.FRONT>*-1)>
+			NEW.MOVE <ARGV2> <eval <ARGV1>+(<LOCAL.FRONT>*-1)>
+		enddo
+		if STRMATCH("t_multi*","<UID.<NEW.REGION.UID>.TYPE>")
+			NEW.REMOVE
+			return 3
+		endif
+	endfor
+NEW.REMOVE
+return 0
+
+
+[FUNCTION f_isOnRoad]
+LOCAL.TERRAIN=<SERV.MAP(<P.X>,<P.Y>,<P.M>).TERRAIN>
+if (<LOCAL.TERRAIN> >= 113) && (<LOCAL.TERRAIN> <= 140)
+	return 1
+elseif (<LOCAL.TERRAIN> >= 232) && (<LOCAL.TERRAIN> <= 235)
+	return 1
+elseif (<LOCAL.TERRAIN> >= 332) && (<LOCAL.TERRAIN> <= 335)
+	return 1
+elseif (<LOCAL.TERRAIN> >= 353) && (<LOCAL.TERRAIN> <= 372)
+	return 1
+elseif (<LOCAL.TERRAIN> >= 496) && (<LOCAL.TERRAIN> <= 499)
+	return 1
+elseif (<LOCAL.TERRAIN> >= 622) && (<LOCAL.TERRAIN> <= 633)
+	return 1
+elseif (<LOCAL.TERRAIN> >= 638) && (<LOCAL.TERRAIN> <= 641)
+	return 1
+elseif (<LOCAL.TERRAIN> >= 804) && (<LOCAL.TERRAIN> <= 940)
+	return 1
+elseif (<LOCAL.TERRAIN> >= 1351) && (<LOCAL.TERRAIN> <= 1366)
+	return 1
+elseif (<LOCAL.TERRAIN> >= 1431) && (<LOCAL.TERRAIN> <= 1446)
+	return 1
+elseif (<LOCAL.TERRAIN> >= 1966) && (<LOCAL.TERRAIN> <= 1969)
+	return 1
+elseif (<LOCAL.TERRAIN> >= 1090) && (<LOCAL.TERRAIN> <= 1145)	// Sand stones
+	return 1
+elseif (<LOCAL.TERRAIN> >= 1281) && (<LOCAL.TERRAIN> <= 1296)	// Sand stones
+	return 1
+elseif (<LOCAL.TERRAIN> >= 9) && (<LOCAL.TERRAIN> <= 21)		// Furrows
+	return 1
+elseif (<LOCAL.TERRAIN> >= 336) && (<LOCAL.TERRAIN> <= 348)	// Furrows
+	return 1
+else
+	return 0
+endif
+
+[FUNCTION f_house_floor]
+// serv.log <args> ---- <eval <SERV.MAP(<P.X>,<P.Y>,<P.M>).TERRAIN.Z>+5> ---- <SERV.MAP(<P.X>,<P.Y>,<P.M>).TERRAIN.Z> ---- <eval 1+(<ARGS>-<eval <SERV.MAP(<P.X>,<P.Y>,<P.M>).TERRAIN.Z>+5>)/20>
+LOCAL.TERRAIN = <eval <SERV.MAP(<P.X>,<P.Y>,<P.M>).TERRAIN.Z>+7>
+if (<ARGS> > <LOCAL.TERRAIN>)
+	return <eval(1+(<ARGS>-<LOCAL.TERRAIN>)/20)>
+endif
+return 0
+
+[FUNCTION f_multi_onplacement_check]
+//local values = west, north, east, south
+local.check_blockradius = -1,-1,1,1
+local.check_multiradius = 0,-5,0,5
+
+if (<def.hs_placement_check_roads>)
+	args = <serv.itemdef.<local.id>.multiregion>
+	local.left = <argv0>
+	local.top = <argv1>
+	local.max_x = <eval -<local.left> + <argv2>>
+	local.max_y = <eval -<local.top> + <argv3>>
+	serv.newnpc = c_man_invisible
+	new.flags |= statf_invisible
+	new.p = <local.p>
+	new.move <local.left>,<local.top>
+
+	for py 1 <local.max_y>
+		for px 1 <local.max_x>
+			if (<new.f_isOnRoad>)
+				new.remove
+				return 1
+			endif
+			new.move 1
+		endfor
+		new.move -<local.max_x> 1
+	endfor
+	new.remove
+endif
+
+// args = <multiregion>
+// foritems 
+
+//////////////////////////////////////////////////////
+
+[DIALOG d_house_static_pricing] //It is not used anywhere
+100,100
+page 0
+f_house_dialog 0,123,280,160
+dhtmlgump 20 132 240 20 0 0 <def.bfont_hs_title><def.bfont_size7><def.center>Static Building Pricing 
+dhtmlgump 20 154 240 20 0 0 <def.bfont_hs_text3><def.center>Building footprint <def.bfont_dyellow><link.tag0.footprint> 
+gumppic 70 178 2501
+dtextentrylimited 100 179 100 20 90 0 10
+dhtmlgump 20 204 240 20 0 0 <def.bfont_hs_text3><def.center>Enter this property's value
+button 30 230 4023 4025 1 0 1
+dhtmlgump 67 233 190 20 0 0 <def.bfont_hs_text1>Put this house on the market
+
+[DIALOG d_house_static_pricing button]
+ONBUTTON=1
+	ref2 = <uid>
+	ref4 = <region.uid>
+	tag0.value = <argtxt[0]>
+	tag0.price = <argtxt[0]>
+	ref4.tag0.forsale = 1
+	// tag0.forsale = 1
+	ref2.housetype = <def.house_public>
+	link.timer = 1
+
+[EOF]

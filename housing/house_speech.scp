@@ -1,0 +1,155 @@
+//****************************************************************************
+// SphereServer by: SphereServer development team and Menasoft.
+// www.sphereserver.net
+//****************************************************************************
+VERSION=X1
+
+[SPEECH spk_house_cmds]
+ON=lock this*
+	ref1 = <region.uid>
+	if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
+		return 0
+	else
+		src.targetf f_house_item_lock
+		src.message @,,1 What do you wish to lockdown?
+		return 1
+	endif
+
+ON=release this*
+	ref1 = <region.uid>
+	if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
+		return 0
+	else
+		src.targetf f_house_item_unlock
+		src.message @,,1 What do you wish to release?
+		return 1
+	endif
+
+// ON=flip this*
+	// ref1 = <region.uid>
+	// if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
+		// return 0
+	// else
+		// src.targetf f_house_item_flip
+		// src.message @,,1 What do you wish to flip?
+		// return 1
+	// endif
+
+ON=secure this*
+	ref1 = <region.uid>
+	if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <src.isgm>) //<ref1.GetFriendPos <src>> >= 0 || 
+		return 0
+	else
+		src.targetf f_house_item_secure
+		src.message @,,1 What do you wish to secure?
+		return 1
+	endif
+
+ON=move north*
+	ref1 = <region.uid>
+	if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
+		return 0
+	else
+		src.targetf f_house_moveN
+		src.message @,,1 What do you wish to move?
+		return 1
+	endif
+
+ON=move south*
+	ref1 = <region.uid>
+	if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
+		return 0
+	else
+		src.targetf f_house_moveS
+		src.message @,,1 What do you wish to move?
+		return 1
+	endif
+
+ON=move east*
+	ref1 = <region.uid>
+	if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
+		return 0
+	else
+		src.targetf f_house_moveE
+		src.message @,,1 What do you wish to move?
+		return 1
+	endif
+
+ON=move west*
+	ref1 = <region.uid>
+	if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
+		return 0
+	else
+		src.targetf f_house_moveW
+		src.message @,,1 What do you wish to move?
+		return 1
+	endif
+
+ON=bank*
+	if <def.hs_can_bank>
+		ref1 = <region.uid>
+		if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
+			return 0
+		else
+			src.bankself
+			src.sysmessage @,,1 You have <src.bankbalance> gold in your Bank Box.
+			return 1
+		endif
+	endif
+
+ON=eject*
+	ref1 = <region.uid>
+	if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
+		return 0
+	else
+		src.targetf f_house_eject
+		src.message @,,1 Select player to eject
+		return 1
+	endif
+
+ON=Ban Person*
+	ref1 = <region.uid>
+	if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
+		return 0
+	else
+		src.targetf f_house_add_list ban
+		src.message @,,1 Select player to ban
+		return 1
+	endif
+
+ON=Place trashcan*
+	ref1 = <region.uid>
+	if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
+		return 0
+	else
+		if (<ref1.tag0.trashcan>)
+			src.sysmessage @32,,1 You already have a trashcan.
+		else
+			serv.newitem i_trashcan
+			new.p = <src.p>
+			new.attr = attr_move_never
+			ref1.tag0.trashcan = <new>
+		endif
+		return 1
+	endif
+
+ON=Remove trashcan*
+	ref1 = <region.uid>
+	if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
+		return 0
+	else
+		if (<ref1.tag0.trashcan>)
+			try uid.<ref1.tag0.trashcan>.remove
+			ref1.tag.trashcan =
+		else
+			src.sysmessage @32,,1 You have no trashcan to remove.
+		endif
+		return 1
+	endif
+
+ON=house commands*
+	dialogclose d_house_commands
+	sdialog d_house_commands
+	return 1
+
+[EOF]
