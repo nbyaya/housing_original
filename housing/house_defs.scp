@@ -285,6 +285,9 @@ HouseCtrl_ENG_Close				Close
 HouseCtrl_ENG_Next				Next
 HouseCtrl_ENG_Prev				Previous
 
+HouseCtrl_ENG_Cancel			Cancel
+HouseCtrl_ENG_Confirm			Confirm
+
 
 HouseCtrl_ENG_InvalTrg			Invalid Target.
 
@@ -483,6 +486,8 @@ HouseCtrl_RUS_Close				Закрыть
 HouseCtrl_RUS_Next				Следующий
 HouseCtrl_RUS_Prev				Предыдущий
 
+HouseCtrl_RUS_Cancel			Отменить
+HouseCtrl_RUS_Confirm			Подтвердить
 
 HouseCtrl_RUS_InvalTrg			Неправильная цель.
 

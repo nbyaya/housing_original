@@ -1513,6 +1513,8 @@ doswitch <src.f_LangShowNum>
 enddo
 ref4.tag0.forsale =
 tag0.price =
+call f_return_todate <serv.rtime>
+tag.lasttransfer = <local.todate>
 ref1.resendtooltip
 
 
@@ -1535,10 +1537,14 @@ endif
 f_house_dialog 15,13,167,184
 gumppic 27 27 100
 dtextentrylimited 50 40 98 80 0 1 60 <name>
-button 50 132 4005 4007 1 0 1
-dhtmlgump 87 135 100 20 0 0 <def.bfont_hs_text1>Confirm
-button 50 160 4017 4018 1 0 0
-dhtmlgump 87 163 100 20 0 0 <def.bfont_hs_text1>Cancel
+doswitch <src.f_LangShowNum>
+	dorigin 50 130
+	dorigin 35 130
+enddo
+button - +2 4005 4007 1 0 1
+dhtmlgump +37 +5 100 20 0 0 <def.bfont_hs_text1><def.HouseCtrl_<src.f_LangShow>_Confirm>
+button - +30 4017 4018 1 0 0
+dhtmlgump +37 +33 100 20 0 0 <def.bfont_hs_text1><def.HouseCtrl_<src.f_LangShow>_Cancel>
 
 [DIALOG d_house_rename BUTTON]
 ONBUTTON=0

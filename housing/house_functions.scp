@@ -923,8 +923,12 @@ if (<eval(<value>+<increasedstorage>)> < <serv.multidef.m_foundation_<local.xy>.
 		new.multicreate
 		new.owner <ref2>
 		new.tag0.convert = 1
-		new.tag.buildon = <local.buildon>
-		new.tag.lasttransfer = <local.transfer>
+		if (<local.buildon> > 0)
+			new.tag.buildon = <local.buildon>
+		endif
+		if (<local.transfer> > 0)
+			new.tag.lasttransfer = <local.transfer>
+		endif
 		doswitch <src.f_LangShowNum>
 			ref2.sysmessage @,,1 The number of houses you own is now <ref2.houses>
 			ref2.sysmessage @,,1 Количество домов, которыми вы владеете, теперь равно <ref2.houses>.
@@ -945,15 +949,19 @@ else
 	enddo
 	local.p = <p>
 	local.buildon = <tag0.buildon>
-	local.transfer = <tag0.lasttransfer>
+	local.transfer = <tag.lasttransfer>
 	remove
 	serv.newitem m_foundation_<local.xy>
 	new.p <local.p>
 	new.multicreate
 	new.owner <ref2>
 	new.tag0.convert = 1
-	new.tag.buildon = <local.buildon>
-	new.tag.lasttransfer = <local.transfer>
+	if (<local.buildon> > 0)
+		new.tag.buildon = <local.buildon>
+	endif
+	if (<local.transfer> > 0)
+		new.tag.lasttransfer = <local.transfer>
+	endif
 	doswitch <src.f_LangShowNum>
 		ref2.sysmessage @,,1 The number of houses you own is now <ref2.houses>.
 		ref2.sysmessage @,,1 Количество домов, которыми вы владеете, теперь равно <ref2.houses>.
