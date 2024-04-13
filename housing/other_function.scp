@@ -1,3 +1,11 @@
+[DEFNAME LANGUAGE]
+ENG					= 0
+RUS					= 1
+
+[DEFNAME msg_types]
+// TextColor Settings
+fail			32
+
 [FUNCTION f_math_cat] //делит число на разряды
 if strlen(<argn>) <= 3
 	return <argn>
