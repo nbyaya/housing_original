@@ -365,8 +365,8 @@ if (<isowner <src>>) || (<src.isgm>)
 	endif
 
 	if <MovingCrate>
-		ref1 = <MovingCrate>
-		if <ref1.count> && (<isowner <src>>) || (<src.isgm>)
+		ref11 = <MovingCrate>
+		if (<ref11.count>) && (<isowner <src>>) || (<src.isgm>)
 			dhtmlgump 44 183 270 20 0 0 <def.bfont_hs_text1><local.txt_reloc>
 			button 7 180 4005 4007 1 0 57
 		else
@@ -534,7 +534,7 @@ endif
 
 page 12
 local.number <ref1.dispid>
-if (<eval <fval <local.number>/2>*2>==<local.number>)
+if (<eval(<fval <local.number>/2>*2)>==<local.number>)
 	button 30 180 4005 4007 1 0 12968
 	tilepic 70 180 2968
 	button 150 180 4005 4007 1 0 12970
