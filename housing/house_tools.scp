@@ -13,10 +13,13 @@ DUPELIST=014f5
 
 ON=@DClick
 	if (<topobj> != <src>)
-		src.sysmessage @,,1 The item must be in your backpack.
+		doswitch <src.f_LangShowNum>
+			src.sysmessage @<def.fail>,,1 The item must be on your backpack.
+			src.sysmessage @<def.fail>,,1 Предмет должен находится в вашем рюкзаке.
+		enddo
 		return 1
 	endif
-	SDIALOG d_house_placement_tool
+	sdialog d_house_placement_tool
 	return 1
 
 
@@ -25,7 +28,6 @@ NAME=trashcan
 ID=i_barrel_open
 TYPE=t_container
 
-//FIXME: better axis categorization?
 CATEGORY=Special Items
 SUBSECTION=Unequippable
 DESCRIPTION=Trashcan
@@ -34,7 +36,7 @@ On=@Create
 	COLOR=0835
 
 On=@Dropon_Self
-	src.sound=011e
+	src.sound = 011e
 	argo.remove
 	return 1
 
@@ -52,19 +54,35 @@ On=@ClientToolTip
 On=@Click
 	if (<TAG0.MODE> == 1)
 		message (turn)
-	elif (<TAG0.MODE> == 2)
-		message (up)
-	elif (<TAG0.MODE> == 3)
-		message (down)
+		doswitch <src.f_LangShowNum>
+			message (turn)
+			message @,,1 (вращать)
+		enddo
+	elseif (<TAG0.MODE> == 2)
+		doswitch <src.f_LangShowNum>
+			message (up)
+			message @,,1 (вверх)
+		enddo
+	elseif (<TAG0.MODE> == 3)
+		doswitch <src.f_LangShowNum>
+			message (down)
+			message @,,1 (вниз)
+		enddo
 	endif
 
 On=@DClick
 	ref1 = <src.region.uid>
 	if (<cont.topobj> != <src>)
-		src.sysmessage @32,,1 That must be in your pack for you to use it.
+		doswitch <src.f_LangShowNum>
+			src.sysmessage @<def.fail>,,1 The item must be on your backpack.
+			src.sysmessage @<def.fail>,,1 Предмет должен находится в вашем рюкзаке.
+		enddo
 		return 1
 	elseif !((<ref1.isowner <src>>) || (<ref1.getcoownerpos <src>> >= 0) || (<src.isgm>))
-		src.sysmessage @32,,1 Only owner and co-owners can change items locations!
+		doswitch <src.f_LangShowNum>
+			src.sysmessage @<def.fail>,,1 Only owner and co-owners can change items locations!
+			src.sysmessage @<def.fail>,,1 Только собственник и совладельцы могут менять предметы.
+		enddo
 		return 1
 	elseif !(<TAG0.MODE>)
 		sdialog d_house_interior_decorator
@@ -75,11 +93,11 @@ On=@DClick
 	return 1
 
 On=@TargOn_Char
-	TAG.House=
+	TAG.House =
 	return 1
 
 On=@TargOn_Cancel
-	TAG.House=
+	TAG.House =
 
 On=@TargOn_Item
 	if (<argo> == <uid>)
@@ -89,37 +107,58 @@ On=@TargOn_Item
 		return 1
 	else
 		ref1 = <argo.region.uid>
-		if (<ref1> != <TAG0.HOUSE>) || !(<SRC.f_house_isInside>)
-			src.sysmessage @32,,1 You must be in your house to do this.
+		if (<ref1> != <TAG0.HOUSE>) || !(<src.f_house_isInside>)
+			doswitch <src.f_LangShowNum>
+				src.sysmessage @<def.fail>,,1 You should be located in the region of the house.
+				src.sysmessage @<def.fail>,,1 Вы должны находится на территории дома.
+			enddo
 			return 1
 		elseif (<argo.cont>) || (<argo.region.uid> != <TAG0.HOUSE>) || !(<argo.f_house_isInside>)
-			src.sysmessage @32,,1 That must be in your house.
+			doswitch <src.f_LangShowNum>
+				src.sysmessage @<def.fail>,,1 The item should be located in the region of the house.
+				src.sysmessage @<def.fail>,,1 Предмет должен находится на территории дома.
+			enddo
 			return 1
 		elseif !(<argo.isevent.ei_house_lockdown>)
-			src.sysmessage @32,,1 That must be locked.
+			doswitch <src.f_LangShowNum>
+				src.sysmessage @<def.fail>,,1 The item should be locked.
+				src.sysmessage @<def.fail>,,1 Предмет должен быть закреплен.
+			enddo
 			return 1
 		elseif !(<ref1.owner> == <src>)
-			src.sysmessage @32,,1 That must be in your house.
+			doswitch <src.f_LangShowNum>
+				src.sysmessage @<def.fail>,,1 The item should be located in the region of your house.
+				src.sysmessage @<def.fail>,,1 Предмет должен находится на территории вашего дома.
+			enddo
 			return 1
 		else
 			TAG.House =
 			if (<TAG0.Mode> == 1)
 				if !(<argo.flip>)
-					SRC.SYSMESSAGE @32,,1 You can not flip it!
+					doswitch <src.f_LangShowNum>
+						src.sysmessage @<def.fail>,,1 You can not flip it!
+						src.sysmessage @<def.fail>,,1 Этот предмет невозможно повернуть.
+					enddo
 				else
 					argo.flip
 				endif
 				return 1
-			elseif (<TAG0.MODE>==2)
+			elseif (<TAG0.MODE> == 2)
 				if (<eval(<argo.p.z>-<argo.tag.startedz>)> >= 15)
-					SRC.SYSMESSAGE @32,,1 This item can not go upper!
+					doswitch <src.f_LangShowNum>
+						src.sysmessage @<def.fail>,,1 This item can not go upper!
+						src.sysmessage @<def.fail>,,1 Этот предмет невозможно поднять выше.
+					enddo
 				else
 					argo.nudgeup
 				endif
 				return 1
 			elseif (<TAG0.MODE> == 3)
 				if (<eval(<argo.p.z>-<argo.tag.startedz>)> <= 0)
-					SRC.SYSMESSAGE @32,,1 This item can not go lower!
+					doswitch <src.f_LangShowNum>
+						src.sysmessage @<def.fail>,,1 This item can not go lower!
+						src.sysmessage @<def.fail>,,1 Этот предмет невозможно опустить ниже.
+					enddo
 				else
 					argo.nudgedown
 				endif

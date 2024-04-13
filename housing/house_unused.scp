@@ -27,59 +27,33 @@ if <ref1.isvalid> && !(<ref1.isowner <uid>> || <isgm>)	// <ref1.GetCoownerPos <u
 	uid.<ref1.link>.more2 += 1
 endif
 
-[FUNCTION f_house_item_flip] // unused function?
+[FUNCTION f_house_item_flip2] // unused function?
 if !<argo>
 	src.sysmessage @32,,1 <def.HouseCtrl_<src.f_LangShow>_InvalTrg>
 	return 1
+elseif !<argo.isitem>
+	src.sysmessage @32,,1 <def.HouseCtrl_<src.f_LangShow>_InvalTrg>
+	return 1
 endif
+
 ref1 = <src.region.uid>
-if (<argo.uid> == <src.uid>) || (<argo.isplayer>)
-	src.sysmessage @32,,1 You cannot flip that.
-	return 1
-elseif (<argo.link> == <ref1>)
-	src.sysmessage @32,,1 You cannot flip that.
+if (<argo.link> == <ref1>)
+	doswitch <src.f_LangShowNum>
+		src.sysmessage @<def.fail>,,1 You cannot flip that.
+		src.sysmessage @<def.fail>,,1 Предмет должен быть закреплен на территории вашего дома.
+	enddo
 	return 1
 endif
-if (<argo.topobj.ischar>)
-	src.sysmessage @32,,1 That would be hillarious... but I am afraid we can't allow it.
+if (<argo.topobj.uid> != <argo.uid>) || (<argo.region.uid> != <ref1.region.uid>)
+	doswitch <src.f_LangShowNum>
+		sysmessage @<def.fail>,,1 Item should be located in the region of the house.
+		sysmessage @<def.fail>,,1 Предмет должен находится на территории дома.
+	enddo
 	return 1
 endif
 ref8 = <argo>
 ref8.flip
 return 1
-
-[FUNCTION f_house_item_flip]
-// log f_ISEMPTY f_flipitem <uid>
-if !<argo>
-	src.sysmessage @32,,1 <def.HouseCtrl_<src.f_LangShow>_InvalTrg>
-	return 1
-elseif !<argo.isitem>
-	return 1
-elseif (<argo.distance> > 2) && (!<argo.cont>)
-	src.sysmessage Target is too far away
-elseif (<argo.attr> & 08010) && !(0<argo.TAG.FLIP_PERMIT>)
-	src.sysmessage You can't flip static items
-elseif (<argo.link.f_istype t_multi> == 1)
-	src.sysmessage You can't flip locked items
-elseif !<argo.flip>
-	src.sysmessage This item is not flipable
-// elseif (<argo.type> == t_craft_fence) || (<argo.type> == t_craft_door)
-	// src.sysmessage You can't flip this item
-elseif (<argo.type> == t_anim_active)
-	src.sysmessage You can't flip this item
-elseif (<argo.tag0.dispid_switch>)
-	if !<ISEMPTY <argo.tag.dispid>>
-		timerfms 0 f_item_antiflip_sub <argo.uid>
-	else
-		src.sysmessage You can't flip this item
-	endif
-elseif !(<ISEMPTY <argo.tag.flip_next>>)
-	argo.id = <argo.tag.flip_next>
-	argo.update
-else
-	argo.flip
-	argo.update
-endif
 
 //////////////////Custom Placement check//////////////////
 
@@ -91,7 +65,7 @@ if !<ref1.uid>
 endif
 if <def.custom_placement>
 	if (<f_house_checkNearArea>)
-		REF1.SYSMESSAGE @,,1 You can't build a house in this area.
+		ref1.sysmessage @,,1 You can't build a house in this area.
 		if !(<REF1.ISGM>)
 			link.redeed
 			return 1
@@ -104,135 +78,136 @@ trysrc <ref1> DIALOG d_house_placement
 serv.log f_house_checkNearArea
 return 0
 ref1 = <region.uid>
-ARGS = <ref1.MULTIREGION>
-SERV.NEWNPC c_pig
-NEW.FLAGS=statf_invul|statf_insubstantial
+args = <ref1.multiregion>
+serv.newnpc c_pig
+new.flags = statf_invul|statf_insubstantial
 
 for 0 7
-	NEW.P = <ref1.P>
+	new.p = <ref1.p>
 	doswitch <LOCAL._FOR>
-		NEW.MOVE <ARGV0> <ARGV1>
-		NEW.MOVE 0 <ARGV1>
-		NEW.MOVE <ARGV2> <ARGV1>
-		NEW.MOVE <ARGV2> 0
-		NEW.MOVE <ARGV2> <ARGV3>
-		NEW.MOVE 0 <ARGV3>
-		NEW.MOVE <ARGV0> <ARGV3>
-		NEW.MOVE <ARGV0> 0
+		new.move <argv0> <argv1>
+		new.move 0 <argv1>
+		new.move <argv2> <argv1>
+		new.move <argv2> 0
+		new.move <argv2> <argv3>
+		new.move 0 <argv3>
+		new.move <argv0> <argv3>
+		new.move <argv0> 0
 	enddo
-	doswitch <LOCAL._FOR>
-		LOCAL.CLEAR=<NEW.CANMOVE nw>
-		LOCAL.CLEAR=<NEW.CANMOVE n>
-		LOCAL.CLEAR=<NEW.CANMOVE ne>
-		LOCAL.CLEAR=<NEW.CANMOVE e>
-		LOCAL.CLEAR=<NEW.CANMOVE se>
-		LOCAL.CLEAR=<NEW.CANMOVE s>
-		LOCAL.CLEAR=<NEW.CANMOVE sw>
-		LOCAL.CLEAR=<NEW.CANMOVE w>
+	doswitch <local._for>
+		local.clear = <new.canmove nw>
+		local.clear = <new.canmove n>
+		local.clear = <new.canmove ne>
+		local.clear = <new.canmove e>
+		local.clear = <new.canmove se>
+		local.clear = <new.canmove s>
+		local.clear = <new.canmove sw>
+		local.clear = <new.canmove w>
 	enddo
-	if (<NEW.f_isOnRoad>) || !(<LOCAL.CLEAR>)
-		NEW.REMOVE
+	if (<new.f_isOnRoad>) || !(<local.clear>)
+		new.remove
 		return 1
 	endif
 endfor
 
 for 0 7
-	NEW.P = <UID.<REGION.UID>.P>
-	doswitch <LOCAL._FOR>
-		NEW.MOVE <eval <ARGV0>+1> <eval <ARGV1>+1>
-		NEW.MOVE 0 <eval <ARGV1>+1>
-		NEW.MOVE <eval <ARGV2>-1> <eval <ARGV1>+1>
-		NEW.MOVE <eval <ARGV2>-1> 0
-		NEW.MOVE <eval <ARGV2>-1> <eval <ARGV3>-1>
-		NEW.MOVE 0 <eval <ARGV3>-1>
-		NEW.MOVE <eval <ARGV0>+1> <eval <ARGV3>-1>
-		NEW.MOVE <eval <ARGV0>+1> 0
+	new.p = <uid.<region.uid>.p>
+	doswitch <local._for>
+		new.move <eval(<argv0>+1)> <eval(<argv1>+1)>
+		new.move 0 <eval(<argv1>+1)>
+		new.move <eval(<argv2>-1)> <eval(<argv1>+1)>
+		new.move <eval(<argv2>-1)> 0
+		new.move <eval(<argv2>-1)> <eval(<argv3>-1)>
+		new.move 0 <eval(<argv3>-1)>
+		new.move <eval(<argv0>+1)> <eval(<argv3>-1)>
+		new.move <eval(<argv0>+1)> 0
 	enddo
-	if (<NEW.ISNEARTYPE t_tree 2>)
-		NEW.REMOVE
+	if (<new.isneartype t_tree 2>)
+		new.remove
 		return 1
 	endif
 endfor
 
-	LOCAL.AREA=3 //<DEF.hs_PlaceMinDistArea>
-	for 0 7
-		NEW.P = <UID.<REGION.UID>.P>
-		doswitch <LOCAL._FOR>
-			NEW.MOVE <eval <ARGV0>+(<LOCAL.AREA>*-1)> <eval <ARGV1>+(<LOCAL.AREA>*-1)>
-			NEW.MOVE 0 <eval <ARGV1>+(<LOCAL.AREA>*-1)>
-			NEW.MOVE <eval <ARGV2>+<LOCAL.AREA>> <eval <ARGV1>+(<LOCAL.AREA>*-1)>
-			NEW.MOVE <eval <ARGV2>+<LOCAL.AREA>> 0
-			NEW.MOVE <eval <ARGV2>+<LOCAL.AREA>> <eval <ARGV3>+<LOCAL.AREA>>
-			NEW.MOVE 0 <eval <ARGV3>+<LOCAL.AREA>>
-			NEW.MOVE <eval <ARGV0>+(<LOCAL.AREA>*-1)> <eval <ARGV3>+<LOCAL.AREA>>
-			NEW.MOVE <eval <ARGV0>+(<LOCAL.AREA>*-1)> 0
-		enddo
-		if STRMATCH("t_multi*","<UID.<NEW.REGION.UID>.TYPE>")
-			NEW.REMOVE
-			return 2
-		endif
-	endfor
-	LOCAL.FRONT = <DEF.hs_PlaceMinDistFront>
-	for 0 5
-		NEW.P = <UID.<REGION.UID>.P>
-		doswitch <LOCAL._FOR>
-			NEW.MOVE <ARGV2> <eval <ARGV3>+<LOCAL.FRONT>>
-			NEW.MOVE 0 <eval <ARGV3>+<LOCAL.FRONT>>
-			NEW.MOVE <ARGV0> <eval <ARGV3>+<LOCAL.FRONT>>
-			NEW.MOVE <ARGV0> <eval <ARGV1>+(<LOCAL.FRONT>*-1)>
-			NEW.MOVE 0 <eval <ARGV1>+(<LOCAL.FRONT>*-1)>
-			NEW.MOVE <ARGV2> <eval <ARGV1>+(<LOCAL.FRONT>*-1)>
-		enddo
-		if STRMATCH("t_multi*","<UID.<NEW.REGION.UID>.TYPE>")
-			NEW.REMOVE
-			return 3
-		endif
-	endfor
-NEW.REMOVE
+local.area = 3 //<DEF.hs_PlaceMinDistArea>
+for 0 7
+	new.p = <uid.<region.uid>.p>
+	doswitch <local._for>
+		new.move <eval(<argv0>+(<local.area>*-1))> <eval(<argv1>+(<local.area>*-1))>
+		new.move 0 <eval(<argv1>+(<local.area>*-1))>
+		new.move <eval(<argv2>+<local.area>)> <eval(<argv1>+(<local.area>*-1))>
+		new.move <eval(<argv2>+<local.area>)> 0
+		new.move <eval(<argv2>+<local.area>)> <eval(<argv3>+<local.area>)>
+		new.move 0 <eval(<argv3>+<local.area>)>
+		new.move <eval(<argv0>+(<local.area>*-1))> <eval(<argv3>+<local.area>)>
+		new.move <eval(<argv0>+(<local.area>*-1))> 0
+	enddo
+	if strmatch("t_multi*","<uid.<new.region.uid>.type>")
+		new.remove
+		return 2
+	endif
+endfor
+local.front = <def.hs_placemindistfront>
+for 0 5
+	new.p = <uid.<region.uid>.p>
+	doswitch <local._for>
+		new.move <argv2> <eval(<argv3>+<local.front>)>
+		new.move 0 <eval(<argv3>+<local.front>)>
+		new.move <argv0> <eval(<argv3>+<local.front>)>
+		new.move <argv0> <eval(<argv1>+(<local.front>*-1))>
+		new.move 0 <eval(<argv1>+(<local.front>*-1))>
+		new.move <argv2> <eval(<argv1>+(<local.front>*-1))>
+	enddo
+	if strmatch("t_multi*","<uid.<new.region.uid>.type>")
+		new.remove
+		return 3
+	endif
+endfor
+
+new.remove
 return 0
 
 
 [FUNCTION f_isOnRoad]
-LOCAL.TERRAIN=<SERV.MAP(<P.X>,<P.Y>,<P.M>).TERRAIN>
-if (<LOCAL.TERRAIN> >= 113) && (<LOCAL.TERRAIN> <= 140)
+local.terrain=<serv.map(<p.x>,<p.y>,<p.m>).terrain>
+if (<local.terrain> >= 113) && (<local.terrain> <= 140)
 	return 1
-elseif (<LOCAL.TERRAIN> >= 232) && (<LOCAL.TERRAIN> <= 235)
+elseif (<local.terrain> >= 232) && (<local.terrain> <= 235)
 	return 1
-elseif (<LOCAL.TERRAIN> >= 332) && (<LOCAL.TERRAIN> <= 335)
+elseif (<local.terrain> >= 332) && (<local.terrain> <= 335)
 	return 1
-elseif (<LOCAL.TERRAIN> >= 353) && (<LOCAL.TERRAIN> <= 372)
+elseif (<local.terrain> >= 353) && (<local.terrain> <= 372)
 	return 1
-elseif (<LOCAL.TERRAIN> >= 496) && (<LOCAL.TERRAIN> <= 499)
+elseif (<local.terrain> >= 496) && (<local.terrain> <= 499)
 	return 1
-elseif (<LOCAL.TERRAIN> >= 622) && (<LOCAL.TERRAIN> <= 633)
+elseif (<local.terrain> >= 622) && (<local.terrain> <= 633)
 	return 1
-elseif (<LOCAL.TERRAIN> >= 638) && (<LOCAL.TERRAIN> <= 641)
+elseif (<local.terrain> >= 638) && (<local.terrain> <= 641)
 	return 1
-elseif (<LOCAL.TERRAIN> >= 804) && (<LOCAL.TERRAIN> <= 940)
+elseif (<local.terrain> >= 804) && (<local.terrain> <= 940)
 	return 1
-elseif (<LOCAL.TERRAIN> >= 1351) && (<LOCAL.TERRAIN> <= 1366)
+elseif (<local.terrain> >= 1351) && (<local.terrain> <= 1366)
 	return 1
-elseif (<LOCAL.TERRAIN> >= 1431) && (<LOCAL.TERRAIN> <= 1446)
+elseif (<local.terrain> >= 1431) && (<local.terrain> <= 1446)
 	return 1
-elseif (<LOCAL.TERRAIN> >= 1966) && (<LOCAL.TERRAIN> <= 1969)
+elseif (<local.terrain> >= 1966) && (<local.terrain> <= 1969)
 	return 1
-elseif (<LOCAL.TERRAIN> >= 1090) && (<LOCAL.TERRAIN> <= 1145)	// Sand stones
+elseif (<local.terrain> >= 1090) && (<local.terrain> <= 1145)	// sand stones
 	return 1
-elseif (<LOCAL.TERRAIN> >= 1281) && (<LOCAL.TERRAIN> <= 1296)	// Sand stones
+elseif (<local.terrain> >= 1281) && (<local.terrain> <= 1296)	// sand stones
 	return 1
-elseif (<LOCAL.TERRAIN> >= 9) && (<LOCAL.TERRAIN> <= 21)		// Furrows
+elseif (<local.terrain> >= 9) && (<local.terrain> <= 21)		// furrows
 	return 1
-elseif (<LOCAL.TERRAIN> >= 336) && (<LOCAL.TERRAIN> <= 348)	// Furrows
+elseif (<local.terrain> >= 336) && (<local.terrain> <= 348)	// furrows
 	return 1
 else
 	return 0
 endif
 
 [FUNCTION f_house_floor]
-// serv.log <args> ---- <eval <SERV.MAP(<P.X>,<P.Y>,<P.M>).TERRAIN.Z>+5> ---- <SERV.MAP(<P.X>,<P.Y>,<P.M>).TERRAIN.Z> ---- <eval 1+(<ARGS>-<eval <SERV.MAP(<P.X>,<P.Y>,<P.M>).TERRAIN.Z>+5>)/20>
-LOCAL.TERRAIN = <eval <SERV.MAP(<P.X>,<P.Y>,<P.M>).TERRAIN.Z>+7>
-if (<ARGS> > <LOCAL.TERRAIN>)
-	return <eval(1+(<ARGS>-<LOCAL.TERRAIN>)/20)>
+// serv.log <args> ---- <eval <serv.map(<p.x>,<p.y>,<p.m>).terrain.z>+5> ---- <serv.map(<p.x>,<p.y>,<p.m>).terrain.z> ---- <eval 1+(<args>-<eval <serv.map(<p.x>,<p.y>,<p.m>).terrain.z>+5>)/20>
+local.terrain = <eval <serv.map(<p.x>,<p.y>,<p.m>).terrain.z>+7>
+if (<args> > <local.terrain>)
+	return <eval(1+(<args>-<local.terrain>)/20)>
 endif
 return 0
 
@@ -289,8 +264,65 @@ ONBUTTON=1
 	tag0.value = <argtxt[0]>
 	tag0.price = <argtxt[0]>
 	ref4.tag0.forsale = 1
-	// tag0.forsale = 1
 	ref2.housetype = <def.house_public>
 	link.timer = 1
+
+[DIALOG d_house_placement]
+100,100
+noclose
+f_house_dialog 0,0,420,280
+dhtmlgump 10 11 400 24 0 0 <def.bfont_hs_red><def.center>!!! <def.HouseCtrl_<src.f_LangShow>_WARNING> !!!
+doswitch
+	dhtmlgump 10 37 404 200 1 1 You are about to place a new house. Placing this house will <def.bfont_hs_title>condemn<def.bfont_black> any and all of your other houses that you may have.<DEF.BR><DEF.BR>In addition, you will not be able to place another house or have one transferred to you for one (1) real-life week.<DEF.BR><DEF.BR>Once you accept these terms, these effects cannot be reversed.  Re-deeding or transferring your new house will <def.bfont_hs_title>not<def.bfont_black> uncondemn your other house(s) nor will the one week timer be removed.<DEF.BR><DEF.BR>If you are absolutely certain you wish to proceed, click the button next to OKAY below.  If you do not wish to trade for this house, click CANCEL.
+	dhtmlgump 10 37 404 200 1 1 Вы собираетесь построить новый дом. Установка этого дома приведет к тому, что вы.<DEF.BR><DEF.BR>Кроме того, вы не сможете разместить другой дом или передать его вам на один (1) срок неделя реальной жизни.<DEF.BR ><DEF.BR >После того, как вы примете эти условия, эти последствия не могут быть отменены. Переоформление или перенос вашего нового дома не повлияет на другие ваши дома, а также не отменит действие недельного таймера.<DEF.BR><DEF.BR >Если вы абсолютно уверены, что хотите продолжить, нажмите кнопку "Далее" ниже нажмите "ОК".  Если вы не хотите торговать этим домом, нажмите кнопку ОТМЕНА.
+enddo
+button 110 247 4005 4007 1 0 0
+dhtmlgump 143 250 100 20 0 0 <def.bfont_hs_text1>CANCEL
+button 240 247 4005 4007 1 0 1
+dhtmlgump 273 250 100 20 0 0 <def.bfont_hs_text1>OKAY
+
+[DIALOG d_house_placement BUTTON]
+ONBUTTON=0
+	if (<link.tag0.placement> != i_gold)
+		link.redeed
+		return 1
+	endif
+	link.remove
+
+ONBUTTON=1
+	if <link.isvalid> && (<link.tag0.placement> == i_gold)
+		if (<src.isgm>)
+			src.sysmessage @,,1 <link.value> gp would have been withdrawn from your bank if you were not a GM.
+		elseif (<src.gold> < <link.value>)
+			src.sysmessage @,,1 You lack the funds avaible in your bankbox to purchase this house. Try placing a smaller house, or adding gold to your bankbox.
+			link.remove
+			return 1
+		else
+			src.gold -= <link.value>
+			src.update
+			src.sysmessage @,,1 <link.value> gp has been withdrawn from your bank box.
+		endif
+	endif
+	if <def.hs_can_decay> && !<src.isgm>
+		attr = 02|010
+		timer = 60*60*24*<def.hs_can_decay>
+	else
+		attr = 010
+		timer = -1
+	endif
+	
+	if <link.isvalid>
+		name = <link.name>
+		link.region.events +r_house_system
+		link.region.flags = region_flag_nodecay|region_flag_nobuilding|region_antimagic_recall_in|region_flag_insta_logout
+		
+		ref1 = <uid> //sign
+		ref2 = <link> //house
+		ref3 = <link.owner> //owner
+		
+		ref2.tag.sign = <uid>
+		tag.sign_dispid = <hval(<dispid> & ~0a8f00000)>
+		ref2.tag.buildon = <local.todate>
+	endif
 
 [EOF]

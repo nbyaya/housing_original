@@ -20,7 +20,7 @@ ref1 = <new.region.uid>
 if (<ref1.isvalid>) && (<ref1.dispid> == <strarg <args>>)
 	ref1.tag.placement = <strarg <streat <args>>>
 	if (<def0.hs_placement_delay>)
-		TAG0.House.PlacementDelay = <eval(<serv.time> + <def0.hs_placement_delay>)>
+		TAG0.House_PlacementDelay = <eval(<serv.time> + <def0.hs_placement_delay>*864000)>
 	endif
 endif
 new.remove
@@ -51,6 +51,35 @@ elseif (<tag0.access> == <def.house_access_guild>)
 	endif
 endif
 return 0
+
+[FUNCTION f_house_msg_access]
+if (<tag0.access> == house_access_owner)
+	doswitch <src.f_LangShowNum>
+		message @,,1 Owner Only
+		message @,,1 Только собственник
+	enddo
+elseif (<tag0.access> == house_access_coowner)
+	doswitch <src.f_LangShowNum>
+		message @,,1 Co-Owners Only
+		message @,,1 Только совладельцы
+	enddo
+elseif (<tag0.access> == house_access_friend)
+	doswitch <src.f_LangShowNum>
+		message @,,1 Friends Only
+		message @,,1 Только друзья
+	enddo
+elseif (<tag0.access> == house_access_guild)
+	if <link.tag0.is_guild>
+		ref5 = <link.tag0.is_guild>
+		if <ref5.isvalid>
+			local.abbrev = <qval <ISEMPTY <ref5.abbrev>>?[None]:<ref5.abbrev>>
+		endif
+	endif
+	doswitch <src.f_LangShowNum>
+		message @,,1 [<local.abbrev>] Members Only
+		message @,,1 Только члены гильдии [<local.abbrev>]
+	enddo
+endif
 
 [FUNCTION f_house_get_priv]
 ref1 = <argn1>
@@ -300,7 +329,7 @@ if <ref2.isplayer>
 				end
 				begin
 					src.sysmessage @52,,1 <ref2.name> получил запрет нахождения на территории этого дома.
-					ref2.sysmessage @52,,1 вам запретили находится на территории этого дома.
+					ref2.sysmessage @52,,1 Вам запретили находится на территории этого дома.
 				end
 			enddo
 			ref2.go <link.p>

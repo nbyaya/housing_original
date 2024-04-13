@@ -41,6 +41,7 @@ hs_placement_check_roads		1		//
 hs_redeed_crate					1		// house items to crate on redeed
 
 hs_placement_delay				3		// Number of days until you can place another house after build previous
+// hs_placement_ilshenar_facet		0	// Place house in Inhenar
 
 hs_door_acces_key				0		//Is set this and (<serv.AutoHouseKeys> == 1) - doors open with keys
 
@@ -84,8 +85,7 @@ bfont_hs_red				<basefont color="#ff3333">  // light red
 bfont_hs_gray				<basefont color="#808080">  // gray
 
 // TextColor Settings
-// fail			32
-
+fail			32
 
 
 // Dialog Language Settings
@@ -267,6 +267,25 @@ HouseCtrl_ENG_ResDecTmr			Reset decay timer to
 HouseCtrl_ENG_WARNING			WARNING
 HouseCtrl_ENG_Condemn			You are about to place a new house. Placing this house will <def.bfont_hs_title>condemn<def.bfont_black> any and all of your other houses that you may have.<DEF.BR><DEF.BR>In addition, you will not be able to place another house or have one transferred to you for one (1) real-life week.<DEF.BR><DEF.BR>Once you accept these terms, these effects cannot be reversed.  Re-deeding or transferring your new house will <def.bfont_hs_title>not<def.bfont_black> uncondemn your other house(s) nor will the one week timer be removed.<DEF.BR><DEF.BR>If you are absolutely certain you wish to proceed, click the button next to OKAY below.  If you do not wish to trade for this house, click CANCEL.
 
+HouseCtrl_ENG_DecorFlip			Flip
+HouseCtrl_ENG_DecorUp			Up
+HouseCtrl_ENG_DecorDown			Down
+HouseCtrl_ENG_HousePTools		HOUSE PLACEMENT TOOL
+HouseCtrl_ENG_HouseClass		Classic Houses
+HouseCtrl_ENG_House2Story		2-Story Customizable Houses
+HouseCtrl_ENG_House3Story		3-Story Customizable Houses
+HouseCtrl_ENG_UnablePlace		You are currently unable to place a new house or receive a house in trade because you have become the owner of a house within the last
+HouseCtrl_ENG_TestPlacem		You can test for house placement right now, but you cannot currently create a permanent house.
+HouseCtrl_ENG_HouseDescr		House Description
+HouseCtrl_ENG_Storages			Storage
+HouseCtrl_ENG_Lockdowns			Lockdowns
+HouseCtrl_ENG_Costs				Cost
+HouseCtrl_ENG_BankBal			Bank Balance
+HouseCtrl_ENG_Close				Close
+HouseCtrl_ENG_Next				Next
+HouseCtrl_ENG_Prev				Previous
+
+
 HouseCtrl_ENG_InvalTrg			Invalid Target.
 
 /////////////////////////////////////////////////////////////
@@ -445,6 +464,24 @@ HouseCtrl_RUS_ResDecTmr			Уст-ть таймер разрушения на
 
 HouseCtrl_RUS_WARNING			ВНИМАНИЕ
 HouseCtrl_RUS_Condemn			Вы собираетесь построить новый дом. Размещение этого дома приведет к тому, что <def.bfont_hs_title>уничтожит<def.bfont_black>все остальные ваши дома, которые у вас могут быть.<DEF.BR><DEF.BR>Кроме того, вы не сможете разместить другой дом или передать его вам на один (1) срок неделя реальной жизни.<DEF.BR ><DEF.BR >После того, как вы примете эти условия, эти последствия не могут быть отменены. Переоформление или перенос вашего нового дома не повлияет на другие ваши дома, а также не отменит действие недельного таймера.<DEF.BR><DEF.BR >Если вы абсолютно уверены, что хотите продолжить, нажмите кнопку "Далее" ниже нажмите "ОК".  Если вы не хотите торговать этим домом, нажмите кнопку ОТМЕНА.
+
+HouseCtrl_RUS_DecorFlip			Flip
+HouseCtrl_RUS_DecorUp			Up
+HouseCtrl_RUS_DecorDown			Down
+HouseCtrl_RUS_HousePTools		МАСТЕР УСТАНОВКИ ДОМОВ
+HouseCtrl_RUS_HouseClass		Классические дома
+HouseCtrl_RUS_House2Story		2-х этажные Проектируемые дома
+HouseCtrl_RUS_House3Story		3-х этажные Проектируемые дома
+HouseCtrl_RUS_UnablePlace		Вы не можете установить или купить новый дом, поскольку вы стали владельцем другого дома в течении последних
+HouseCtrl_RUS_TestPlacem		Вы можете протестировать систему размещения дома прямо сейчас, но не сможете установить постоянный дом.
+HouseCtrl_RUS_HouseDescr		Описание дома
+HouseCtrl_RUS_Storages			Склад
+HouseCtrl_RUS_Lockdowns			Закреп.
+HouseCtrl_RUS_Costs				Цена
+HouseCtrl_RUS_BankBal			Банковский баланс
+HouseCtrl_RUS_Close				Закрыть
+HouseCtrl_RUS_Next				Следующий
+HouseCtrl_RUS_Prev				Предыдущий
 
 
 HouseCtrl_RUS_InvalTrg			Неправильная цель.
