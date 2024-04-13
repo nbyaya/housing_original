@@ -18,6 +18,64 @@ return <local.res>
 [FUNCTION f_return_odd] // четное ли число? 1 = да
 return <qval <argn>%2?0:1>
 
+//////////////////////////////////////
+
+[FUNCTION f_rtime_year]
+if <ISEMPTY <args>>
+	return <serv.rtime.format %Y>
+else
+	return "<eval(<STRSUB 0 4 <args>>)>"
+endif
+
+[FUNCTION f_rtime_month]
+if <ISEMPTY <args>>
+	return <serv.rtime.format %m>
+else
+	return <STRSUB 5 2 <args>>
+endif
+
+[FUNCTION f_rtime_day]
+if <ISEMPTY <args>>
+	return <serv.rtime.format %d>
+else
+	return <STRSUB 8 2 <args>>
+endif
+
+[FUNCTION f_rtime_hours]
+if <ISEMPTY <args>>
+	return <serv.rtime.format %H>
+else
+	return <STRSUB 11 2 <args>>
+endif
+
+[FUNCTION f_rtime_minutes]
+if <ISEMPTY <args>>
+	return <serv.rtime.format %M>
+else
+	return <STRSUB 14 2 <args>>
+endif
+
+[FUNCTION f_rtime_second]
+if <ISEMPTY <args>>
+	return <serv.rtime.format %S>
+else
+	return <STRSUB 17 2 <args>>
+endif
+
+
+[FUNCTION f_return_todate]
+if <ISEMPTY <args>>
+	local.year = "<f_rtime_year <serv.rtime>>"
+	local.month = "<f_rtime_month <serv.rtime>>"
+	local.day = "<f_rtime_day <serv.rtime>>"
+	local.todate = <f_rtime_year <serv.rtime>>_<f_rtime_month <serv.rtime>>_<f_rtime_day <serv.rtime>>
+else
+	local.year = "<f_rtime_year <args>>"
+	local.month = "<f_rtime_month <args>>"
+	local.day = "<f_rtime_day <args>>"
+	local.todate = <f_rtime_year <args>>_<f_rtime_month <args>>_<f_rtime_day <args>>
+endif
+
 [FUNCTION f_return_timeleft]
 local.timer = <argn>
 if (<argn> <= 0)
@@ -111,7 +169,7 @@ endif
 // say @,,1 <argn> <local.sec_name>
 
 
-///////////////////
+//////////////////////////////////////
 
 [FUNCTION f_LangChange]
 if <ISEMPTY <account.tag.LANG>>
