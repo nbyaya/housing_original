@@ -511,25 +511,25 @@ if (<IncreasedStorage> < 76)
 	dhtmlgump +36 *20 180 20 0 0 <def.bfont_hs_text3><local.IncAdd> <def.bfont_hs_text2>25<def.bfont_hs_text3>% <local.IncFor> <def.bfont_hs_text2><QVAL (<value>)? <eval (<value>/8)>:<eval (<ref1.tag0.value>/8)>><def.bfont_hs_text3> gp
 	button - 300 4023 4025 1 0 31
 else
-	dhtmlgump +36 *20 120 20 0 0 <def.bfont_hs_text3><local.IncAdd> <def.bfont_hs_text2>25<def.bfont_hs_text3>% 
+	dhtmlgump +36 *20 120 20 0 0 <def.bfont_hs_gray><local.IncAdd> <def.bfont_hs_gray>25<def.bfont_hs_gray>% 
 endif
 if (<IncreasedStorage> < 51)
 	dhtmlgump +36 *20 180 20 0 0 <def.bfont_hs_text3><local.IncAdd> <def.bfont_hs_text2>50<def.bfont_hs_text3>% <local.IncFor> <def.bfont_hs_text2><QVAL (<value>)? <eval <value>/4>:<eval <ref1.tag0.value>/4>><def.bfont_hs_text3> gp
 	button - 320 4023 4025 1 0 32
 else
-	dhtmlgump +36 *20 120 20 0 0 <def.bfont_hs_text3><local.IncAdd> <def.bfont_hs_text2>50<def.bfont_hs_text3>% 
+	dhtmlgump +36 *20 120 20 0 0 <def.bfont_hs_gray><local.IncAdd> <def.bfont_hs_gray>50<def.bfont_hs_gray>% 
 endif
 if (<IncreasedStorage> < 26)
 	dhtmlgump +36 *20 180 20 0 0 <def.bfont_hs_text3><local.IncAdd> <def.bfont_hs_text2>75<def.bfont_hs_text3>% <local.IncFor> <def.bfont_hs_text2><QVAL (<value>)? <eval ((<value>/8)*3)>:<eval ((<ref1.tag0.value>/8)*3)>><def.bfont_hs_text3> gp
 	button - 340 4023 4025 1 0 33
 else
-	dhtmlgump +36 *20 120 20 0 0 <def.bfont_hs_text3><local.IncAdd> <def.bfont_hs_text2>75<def.bfont_hs_text3>% 
+	dhtmlgump +36 *20 120 20 0 0 <def.bfont_hs_gray><local.IncAdd> <def.bfont_hs_gray>75<def.bfont_hs_gray>% 
 endif
 if !<IncreasedStorage>
 	dhtmlgump +36 *20 180 20 0 0 <def.bfont_hs_text3><local.IncAdd> <def.bfont_hs_text2>100<def.bfont_hs_text3>% <local.IncFor> <def.bfont_hs_text2><QVAL (<value>)? <eval <value>/2>:<eval <ref1.tag0.value>/2>><def.bfont_hs_text3> gp
 	button - 360 4023 4025 1 0 34
 else
-	dhtmlgump +36 *20 120 20 0 0 <def.bfont_hs_text3><local.IncAdd> <def.bfont_hs_text2>100<def.bfont_hs_text3>% 
+	dhtmlgump +36 *20 120 20 0 0 <def.bfont_hs_gray><local.IncAdd> <def.bfont_hs_gray>100<def.bfont_hs_gray>% 
 endif
 
 page 12
