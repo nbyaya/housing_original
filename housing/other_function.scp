@@ -183,6 +183,12 @@ endif
 
 //////////////////////////////////////
 
+[PLEVEL 1]
+LANGUAGE
+
+[FUNCTION LANGUAGE]
+f_LangChange
+
 [FUNCTION f_LangChange]
 if <ISEMPTY <account.tag.LANG>>
 	account.tag.LANG = ENG

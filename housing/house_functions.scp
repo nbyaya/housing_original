@@ -1065,34 +1065,4 @@ resizepic <argv[0]> <argv[1]> <def.dialog_hs_bg> <argv[2]> <argv[3]>
 gumppictiled <eval(<argv[0]>+4)> <eval(<argv[1]>+6)> <eval(<argv[2]>-9)> <eval(<argv[3]>-10)> 2624
 checkertrans <eval(<argv[0]>+4)> <eval(<argv[1]>+6)> <eval(<argv[2]>-9)> <eval(<argv[3]>-10)>
 
-[FUNCTION f_house_init] //ref1 - sign //ref2 - house //ref3 - owner
-// if (<timer> == -1)
-	// timer = 3600
-	// if !<argn1>
-		// if <src.isgm>
-			// message @,,1 <name>: таймер возобновлен
-		// endif
-	// endif
-// endif
-if !(<ref2.tag0.sign>)
-	tag.region_name = <ref2.tag.region_name>
-	tag.kingdom = <ref2.tag0.kingdom>
-	tag.kingdom_name = <ref2.tag.kingdom_name>
-	
-	call f_return_todate <serv.rtime>
-	ref2.tag.buildon = <local.todate>
-	if (<argn1> & 02)
-		ref2.tag.lasttransfer = <local.todate>
-	endif
-	
-	ref2.tag.sign = <uid>
-	tag.sign_dispid = <hval(<dispid> & ~0a8f00000)>
-endif
-if !(<tag0.update_time>)
-	tag.update_time = <serv.time>
-endif
-if !(<tag0.update_date>)
-	tag.update_date = <eval(<f_return_jd> - ((<serv.time> - <tag.update_time>) / 864000))>
-endif
-
 [EOF]

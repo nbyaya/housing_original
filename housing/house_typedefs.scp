@@ -31,17 +31,10 @@ On=@HouseSysInit
 		ref2 = <link> //house
 		ref3 = <link.owner> //owner
 		
-		call f_house_init 01
-		call f_house_counter_set
-		
 		ref2.tag.sign = <uid>
 		tag.sign_dispid = <hval(<dispid> & ~0a8f00000)>
 		ref2.tag.buildon = <local.todate>
 		
-		local.file_name = secure/secure
-		LOGOPEN <local.file_name>
-		LOGWRITE <local.file_name>,[BUILD] House <link.name>[<link.uid>] build by <ref3.name>(<ref3.account>)[<ref3.uid>]
-		LOGFLUSH <local.file_name>
 		resendtooltip 1,0
 	endif
 
