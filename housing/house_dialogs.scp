@@ -173,9 +173,11 @@ if !<ISEMPTY <tag.lasttransfer>>
 	dhtmlgump 120 - 120 20 0 0 <def.bfont_hs_text3><local.day>.<local.month>.<local.year>
 endif
 
-call f_return_todate <tag0.buildon>
-dhtmlgump 20 *20 100 20 0 0 <def.bfont_hs_title><def.HouseCtrl_<src.f_LangShow>_BuildOn>
-dhtmlgump 120 - 120 20 0 0 <def.bfont_hs_text3><local.day>.<local.month>.<local.year>
+if !<ISEMPTY <tag.buildon>>
+	call f_return_todate <tag0.buildon>
+	dhtmlgump 20 *20 100 20 0 0 <def.bfont_hs_title><def.HouseCtrl_<src.f_LangShow>_BuildOn>
+	dhtmlgump 120 - 120 20 0 0 <def.bfont_hs_text3><local.day>.<local.month>.<local.year>
+endif
 
 dhtmlgump 20 *20 100 20 0 0 <def.bfont_hs_title><def.HouseCtrl_<src.f_LangShow>_Value>
 dhtmlgump 120 - 120 20 0 0 <def.bfont_hs_text3><dlocal.value> gp
