@@ -1,6 +1,10 @@
 [DEFNAME LANGUAGE]
-ENG					= 0
-RUS					= 1
+LANG_COUNT = 2
+LANG_0		= ENG
+LANG_1		= RUS
+
+ENG			= 0
+RUS			= 1
 
 [DEFNAME msg_types]
 // TextColor Settings
@@ -183,8 +187,12 @@ endif
 if <ISEMPTY <account.tag.LANG>>
 	account.tag.LANG = ENG
 endif
-local.switch = <qval <def.<account.tag.LANG>>?ENG:RUS>
-account.tag.LANG = <local.switch>
+local.lang = <f_LangShowNum>
+local.lang += 1
+if (<local.lang> > <eval(<def0.LANG_COUNT>-1)>)
+	local.lang = 0
+endif
+account.tag.LANG = <def0.LANG_<dlocal.lang>>
 src.sysmessage @,,1 LANG = <account.tag.LANG>
 
 [FUNCTION f_LangShowNum]
