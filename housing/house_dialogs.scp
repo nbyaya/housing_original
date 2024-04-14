@@ -295,8 +295,13 @@ dorigin 11 160
 dhtmlgump 11 *20 250 20 0 0 <def.bfont_hs_text3><def.HouseCtrl_<src.f_LangShow>_StorageMax>
 dhtmlgump 290 - 140 20 0 0 <def.bfont_hs_text1><qval (!<def.hs_hs_secure_locks_limit>)?<local.unlim>:<maxstorage>>
 
-dhtmlgump 11 *20 250 20 0 0 <def.bfont_hs_text3><def.HouseCtrl_<src.f_LangShow>_UseMoveCont> //my line
-dhtmlgump 290 - 140 20 0 0 <def.bfont_hs_text1><qval (!<def.hs_hs_secure_locks_limit>)?<local.unlim>:<qval (<MovingCrate>)?<uid.<MovingCrate>.count>:0>> //my line
+if (<type> == t_multi_custom)
+	dhtmlgump 11 *20 250 20 0 0 <def.bfont_hs_text3><def.HouseCtrl_<src.f_LangShow>_UseMoveCont>
+	dhtmlgump 290 - 140 20 0 0 <def.bfont_hs_text1><qval (!<def.hs_hs_secure_locks_limit>)?<local.unlim>:<qval (<MovingCrate>)?<uid.<MovingCrate>.count>:0>> //my line
+else
+	dhtmlgump 11 *20 250 20 0 0 <def.bfont_hs_gray><def.HouseCtrl_<src.f_LangShow>_UseMoveCont>
+	dhtmlgump 290 - 140 20 0 0 <def.bfont_hs_gray><qval (!<def.hs_hs_secure_locks_limit>)?<local.unlim>:<qval (<MovingCrate>)?<uid.<MovingCrate>.count>:0>> //my line
+endif
 
 // dhtmlgump 11 *20 250 20 0 0 <def.bfont_hs_text3><def.HouseCtrl_<src.f_LangShow>_StorageMax> //my line
 // dhtmlgump 290 - 140 20 0 0 <def.bfont_hs_text1><qval (!<def.hs_hs_secure_locks_limit>)?<local.unlim>:<eval(<maxstorage>-(<lockdowns>+<getSECUREDitems>))> / <maxstorage>> //my line
