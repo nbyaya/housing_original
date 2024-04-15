@@ -1,10 +1,10 @@
 [DEFNAME LANGUAGE]
 LANG_COUNT = 2
 LANG_0		= ENG
-LANG_1		= RUS
+LANG_1		= CHT
 
 ENG			= 0
-RUS			= 1
+CHT			= 1
 
 [DEFNAME msg_types]
 // TextColor Settings
@@ -130,42 +130,42 @@ local.last = <STRSUB <eval(strlen(<argn>)-1)> 1 <argn>>
 if (<local.last> == 1)
 	local.month_name = месяц
 elseif ((<local.last> >= 2) && (<local.last> <= 4))
-	local.month_name = месяца
+	local.month_name = 月
 else
-	local.month_name = месяцев
+	local.month_name = 月
 endif
 // say @,,1 <argn> <local.month_name>
 
 [FUNCTION f_days_name]
 local.last = <STRSUB <eval(strlen(<argn>)-1)> 1 <argn>>
 if (<local.last> == 1)
-	local.day_name = день
+	local.day_name = 天
 elseif ((<local.last> >= 2) && (<local.last> <= 4))
-	local.day_name = дня
+	local.day_name = 天
 else
-	local.day_name = дней
+	local.day_name = 天
 endif
 // say @,,1 <argn> <local.day_name>
 
 [FUNCTION f_hour_name]
 local.last = <STRSUB <eval(strlen(<argn>)-1)> 1 <argn>>
 if (<local.last> == 1)
-	local.hour_name = час
+	local.hour_name = 小時
 elseif ((<local.last> >= 2) && (<local.last> <= 4))
-	local.hour_name = часа
+	local.hour_name = 小時
 else
-	local.hour_name = часов
+	local.hour_name = 小時
 endif
 // say @,,1 <argn> <local.hour_name>
 
 [FUNCTION f_minutes_name]
 local.last = <STRSUB <eval(strlen(<argn>)-1)> 1 <argn>>
 if (<local.last> == 1)
-	local.min_name = минуту
+	local.min_name = 分鐘
 elseif ((<local.last> >= 2) && (<local.last> <= 4))
-	local.min_name = минуты
+	local.min_name = 分鐘
 else
-	local.min_name = минут
+	local.min_name = 分鐘
 endif
 // say @,,1 <argn> <local.min_name>
 
@@ -227,12 +227,12 @@ button 207 10 3 4 1 0 0    // close/cancel
 
 doswitch <src.f_LangShowNum>
 	dhtmlgump 10 10 240 20 0 0 <def.bfont_hs_title><def.center>LANGUAGE SELECTION
-	dhtmlgump 10 10 240 20 0 0 <def.bfont_hs_title><def.center>ВЫБОР ЯЗЫКА
+	dhtmlgump 10 10 240 20 0 0 <def.bfont_hs_title><def.center>語言選擇
 enddo
 resizepic 13 32 3000 233 64
 doswitch <src.f_LangShowNum>
 	dhtmlgump 10 36 240 60 0 0 <def.center>In this menu, you can change<def.br>the language of messages<def.br>in the game.
-	dhtmlgump 10 36 240 60 0 0 <def.center>В этом диалоговом окне<def.br>можно сменить язык<def.br>сообщений в игре.
+	dhtmlgump 10 36 240 60 0 0 <def.center>在此菜單中<def.br>你可以更改<def.br>房屋系統的語言.
 enddo
 
 dorigin 4 60

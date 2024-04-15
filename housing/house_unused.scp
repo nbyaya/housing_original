@@ -40,14 +40,14 @@ ref1 = <src.region.uid>
 if (<argo.link> == <ref1>)
 	doswitch <src.f_LangShowNum>
 		src.sysmessage @<def.fail>,,1 You cannot flip that.
-		src.sysmessage @<def.fail>,,1 Предмет должен быть закреплен на территории вашего дома.
+		src.sysmessage @<def.fail>,,1 不能翻转.
 	enddo
 	return 1
 endif
 if (<argo.topobj.uid> != <argo.uid>) || (<argo.region.uid> != <ref1.region.uid>)
 	doswitch <src.f_LangShowNum>
 		sysmessage @<def.fail>,,1 Item should be located in the region of the house.
-		sysmessage @<def.fail>,,1 Предмет должен находится на территории дома.
+		sysmessage @<def.fail>,,1 项目应位于房屋所在区域.
 	enddo
 	return 1
 endif
@@ -65,7 +65,10 @@ if !<ref1.uid>
 endif
 if <def.custom_placement>
 	if (<f_house_checkNearArea>)
-		ref1.sysmessage @,,1 You can't build a house in this area.
+	    doswitch <src.f_LangShowNum>
+		    ref1.sysmessage @,,1 You can't build a house in this area.
+		    ref1.sysmessage @,,1 不能在这里建房.
+	    enddo
 		if !(<REF1.ISGM>)
 			link.redeed
 			return 1
@@ -274,7 +277,7 @@ f_house_dialog 0,0,420,280
 dhtmlgump 10 11 400 24 0 0 <def.bfont_hs_red><def.center>!!! <def.HouseCtrl_<src.f_LangShow>_WARNING> !!!
 doswitch
 	dhtmlgump 10 37 404 200 1 1 You are about to place a new house. Placing this house will <def.bfont_hs_title>condemn<def.bfont_black> any and all of your other houses that you may have.<DEF.BR><DEF.BR>In addition, you will not be able to place another house or have one transferred to you for one (1) real-life week.<DEF.BR><DEF.BR>Once you accept these terms, these effects cannot be reversed.  Re-deeding or transferring your new house will <def.bfont_hs_title>not<def.bfont_black> uncondemn your other house(s) nor will the one week timer be removed.<DEF.BR><DEF.BR>If you are absolutely certain you wish to proceed, click the button next to OKAY below.  If you do not wish to trade for this house, click CANCEL.
-	dhtmlgump 10 37 404 200 1 1 Вы собираетесь построить новый дом. Установка этого дома приведет к тому, что вы.<DEF.BR><DEF.BR>Кроме того, вы не сможете разместить другой дом или передать его вам на один (1) срок неделя реальной жизни.<DEF.BR ><DEF.BR >После того, как вы примете эти условия, эти последствия не могут быть отменены. Переоформление или перенос вашего нового дома не повлияет на другие ваши дома, а также не отменит действие недельного таймера.<DEF.BR><DEF.BR >Если вы абсолютно уверены, что хотите продолжить, нажмите кнопку "Далее" ниже нажмите "ОК".  Если вы не хотите торговать этим домом, нажмите кнопку ОТМЕНА.
+	dhtmlgump 10 37 404 200 1 1 你將放置一座新房子.<DEF.BR>放置這棟房子將抵消 <def.bfont_black> 您可能擁有的任何和所有其他房子.<DEF.BR> 此外, 在一個現實生活周內,你將無法放置其他房子或將房子轉讓給您.<DEF.BR><DEF.BR>一旦您接受這些條款, 這些影響將無法逆轉.<def.bfont_hs_title>重新分配或轉讓您的新房屋不會<def.bfont_black>解除您其他房屋的抵押權,一周計時器也不會被取消.<DEF.BR><DEF.BR>如果您完全確定要繼續交易, 請點擊下面"確定"旁邊的按鈕.如果你不想交易此房屋, 請單擊"取消".
 enddo
 button 110 247 4005 4007 1 0 0
 dhtmlgump 143 250 100 20 0 0 <def.bfont_hs_text1>CANCEL
@@ -292,15 +295,15 @@ ONBUTTON=0
 ONBUTTON=1
 	if <link.isvalid> && (<link.tag0.placement> == i_gold)
 		if (<src.isgm>)
-			src.sysmessage @,,1 <link.value> gp would have been withdrawn from your bank if you were not a GM.
+			src.sysmessage @,,1 如果你不是管理人员, 将从你的银行中提取 <link.value> gp .
 		elseif (<src.gold> < <link.value>)
-			src.sysmessage @,,1 You lack the funds avaible in your bankbox to purchase this house. Try placing a smaller house, or adding gold to your bankbox.
+			src.sysmessage @,,1 您的银行账户中没有足够的资金来购买这栋房屋。尝试放置一栋较小的房屋，或向您的银行账户中添加GOLD.
 			link.remove
 			return 1
 		else
 			src.gold -= <link.value>
 			src.update
-			src.sysmessage @,,1 <link.value> gp has been withdrawn from your bank box.
+			src.sysmessage @,,1 <link.value> gp 已从您的银行账户中提取.
 		endif
 	endif
 	if <def.hs_can_decay> && !<src.isgm>
