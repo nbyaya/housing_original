@@ -40,10 +40,10 @@ hs_secure_locks_limit			0		// Overwrite hardcoded placement check. (Doesnt work 
 hs_placement_check_roads		1		//
 hs_redeed_crate					1		// house items to crate on redeed
 
-hs_placement_delay				3		// Number of days until you can place another house after build previous
+hs_placement_delay				0		// Number of days until you can place another house after build previous
 // hs_placement_ilshenar_facet		0	// Place house in Inhenar
 
-hs_door_acces_key				0		//Is set this and (<serv.AutoHouseKeys> == 1) - doors open with keys
+hs_door_acces_key				1		//Is set this and (<serv.AutoHouseKeys> == 1) - doors open with keys
 
 //vendor settings
 house_list_vendors				0		// set to 1 to allow players on house list to place vendors, 0 = owner only
@@ -96,6 +96,7 @@ HouseCtrl_ENG_Banish			Banish
 HouseCtrl_ENG_Revoke			Revoke Access
 HouseCtrl_ENG_LiftBan			Lift a Ban
 HouseCtrl_ENG_Eject				Eject Person
+HouseCtrl_ENG_Language          Language
 ////
 HouseCtrl_ENG_Owned				Owned By
 HouseCtrl_ENG_IncorrPlace		This house is improperly placed.
@@ -289,203 +290,204 @@ HouseCtrl_ENG_InvalTrg			Invalid Target.
 
 /////////////////////////////////////////////////////////////
 
-HouseCtrl_RUS_INFORMATION		ИНФОРМАЦИЯ
-HouseCtrl_RUS_SECURITY			БЕЗОПАСНОСТЬ
-HouseCtrl_RUS_STORAGE			ХРАНИЛИЩЕ
-HouseCtrl_RUS_CUSTOMIZE			НАСТРОЙКИ
-HouseCtrl_RUS_OWNERSHIP			СОБСТВЕННОСТЬ
+HouseCtrl_CHT_INFORMATION		信息
+HouseCtrl_CHT_SECURITY			安全
+HouseCtrl_CHT_STORAGE			存儲
+HouseCtrl_CHT_CUSTOMIZE			定製
+HouseCtrl_CHT_OWNERSHIP			業主
 ////
-HouseCtrl_RUS_GrantAccess		Даровать доступ
-HouseCtrl_RUS_Banish			Изгнать
-HouseCtrl_RUS_Revoke			Отозвать доступ
-HouseCtrl_RUS_LiftBan			Снять запрет
-HouseCtrl_RUS_Eject				Прогнать
+HouseCtrl_CHT_GrantAccess		授予訪問權限
+HouseCtrl_CHT_Banish			驅逐
+HouseCtrl_CHT_Revoke			撤消訪問權限
+HouseCtrl_CHT_LiftBan			解除禁令
+HouseCtrl_CHT_Eject				彈出人員
+HouseCtrl_CHT_Language    切換語言
 ////
-HouseCtrl_RUS_Owned				Владелец:
-HouseCtrl_RUS_IncorrPlace		Этот дом неправильно расположен.
-HouseCtrl_RUS_Headquarter		Это здание является штаб-квартирой
-HouseCtrl_RUS_Guild				гильдии
-HouseCtrl_RUS_BuildOn			Построен:
-HouseCtrl_RUS_SalePrice			Это здание продается за
-HouseCtrl_RUS_Value				Стоимость:
-HouseCtrl_RUS_VisitCnt			Счетчик визитов:
+HouseCtrl_CHT_Owned				業主:
+HouseCtrl_CHT_IncorrPlace		譔房屋放置不當.
+HouseCtrl_CHT_Headquarter		這所房子是
+HouseCtrl_CHT_Guild				公會
+HouseCtrl_CHT_BuildOn			構建於:
+HouseCtrl_CHT_SalePrice			該房屋出售價格為
+HouseCtrl_CHT_Value				房屋價值:
+HouseCtrl_CHT_VisitCnt			訪問計數:
 
-HouseCtrl_RUS_LstPrice			Заявленная Цена:
-HouseCtrl_RUS_HouseIsOf			Этот дом построен по
-HouseCtrl_RUS_HouseIs			и находится в
-HouseCtrl_RUS_Custom			индивидуальному
-HouseCtrl_RUS_Prebuilt			стандартному
-HouseCtrl_RUS_Design			проекту
-HouseCtrl_RUS_PrivProp			частной собственности
-HouseCtrl_RUS_PublOpen			в публичном доступе
-HouseCtrl_RUS_DecayProtect		Этот дом защищен от разрушения.
-HouseCtrl_RUS_ThisHouse			Этот дом
-HouseCtrl_RUS_WillDemol			будет снесён
-HouseCtrl_RUS_WillDecay			разрушится
-HouseCtrl_RUS_SayIn				через
-HouseCtrl_RUS_MsgShedDemol		Этот дом расположен в неправильном месте и будет снесён через
-HouseCtrl_RUS_MsgDemolRefund	Если вы сами не демонтируете здание, то оно вместе с находящимися на его территории предметами будет удалено
-HouseCtrl_RUS_FORSALE			ПРОДАЁТСЯ
-HouseCtrl_RUS_BuyHouse			Купите этот дом за
-HouseCtrl_RUS_TaxCover			Налог на имущество оплачен на
-HouseCtrl_RUS_TaxIs				Налог на имущество составляет 
+HouseCtrl_CHT_LstPrice			標價:
+HouseCtrl_CHT_HouseIsOf			這所房子是
+HouseCtrl_CHT_HouseIs			這所房子是
+HouseCtrl_CHT_Custom			定製
+HouseCtrl_CHT_Prebuilt			預建
+HouseCtrl_CHT_Design			設計
+HouseCtrl_CHT_PrivProp			私有財產
+HouseCtrl_CHT_PublOpen			向公眾開放
+HouseCtrl_CHT_DecayProtect		這所房子已免於腐爛.
+HouseCtrl_CHT_ThisHouse			這棟房子
+HouseCtrl_CHT_WillDemol			將被拆除
+HouseCtrl_CHT_WillDecay			會腐爛
+HouseCtrl_CHT_SayIn				在
+HouseCtrl_CHT_MsgShedDemol		該房屋位置不當, 已計劃於
+HouseCtrl_CHT_MsgDemolRefund	除非你在此之前自行重新購買, 否則房屋及其內的所有物品將丟失且不予退款
+HouseCtrl_CHT_FORSALE			出售
+HouseCtrl_CHT_BuyHouse			購買此房子
+HouseCtrl_CHT_TaxCover			譔房屋的物業費還剩
+HouseCtrl_CHT_TaxIs				該房屋的物業費為 
 
-HouseCtrl_RUS_DemolProceed		Вы собираетесь снести
-HouseCtrl_RUS_DemolProceed2		этот объект недвижимости
-HouseCtrl_RUS_DemolProceed3		Желаете продолжить?
-HouseCtrl_RUS_DemolAndDestr		Снести и утилизировать
-HouseCtrl_RUS_Refund			Возврат
-HouseCtrl_RUS_Charge			Заплатите
-HouseCtrl_RUS_GMFree			Бесплатно для ГМа
-HouseCtrl_RUS_RedeedBank		Свернуть и сложить в банк
-HouseCtrl_RUS_ClrList			Вы собираетесь очистить
-HouseCtrl_RUS_ClrConfirm		Подтведить очистку списка
+HouseCtrl_CHT_DemolProceed		你即將拆除
+HouseCtrl_CHT_DemolProceed2		此房屋
+HouseCtrl_CHT_DemolProceed3		你想繼續嗎?
+HouseCtrl_CHT_DemolAndDestr		拆除和銷燬屋內物品
+HouseCtrl_CHT_Refund			退款
+HouseCtrl_CHT_Charge			收費
+HouseCtrl_CHT_GMFree			GM免費
+HouseCtrl_CHT_RedeedBank		贖回和物品退回銀行箱
+HouseCtrl_CHT_ClrList			你即將清除您的
+HouseCtrl_CHT_ClrConfirm		確認清除列表
 
-HouseCtrl_RUS_Access			Доступ
-HouseCtrl_RUS_Owner				Владелец
-HouseCtrl_RUS_OwnerOnly			Только владелец
-HouseCtrl_RUS_CoOwners			Совладельцы
-HouseCtrl_RUS_Friends			Друзья
-HouseCtrl_RUS_GuildMemb			Согильдийцы
-HouseCtrl_RUS_Anyone			Кто угодно
+HouseCtrl_CHT_Access			訪問權限
+HouseCtrl_CHT_Owner				業主
+HouseCtrl_CHT_OwnerOnly			僅限業主
+HouseCtrl_CHT_CoOwners			共有人
+HouseCtrl_CHT_Friends			朋友
+HouseCtrl_CHT_GuildMemb			公會成員
+HouseCtrl_CHT_Anyone			任何人
 
-HouseCtrl_RUS_Refreshed			Дом автоматически обновлен.
-HouseCtrl_RUS_LastTraded		Куплен:
-HouseCtrl_RUS_PayTax			Оплатить налог на собственность
-HouseCtrl_RUS_TradeHouse		Продать дом
-HouseCtrl_RUS_HouseRemoval		Удаление дома
-HouseCtrl_RUS_RemoveEnsure		Пожалуйста, убедитесь, что ваш дом пуст, прежде чем выставлять его на продажу. Все списки будут удалены и все двери будут открыты. Ваш дом будет открыт для просмотра, однако вы сохраните за собой контроль над ним до тех пор, пока он не будет куплен.
-HouseCtrl_RUS_PutForSale		Выставить дом на продажу
-HouseCtrl_RUS_TakeOffSale		Снять дом с продажи
+HouseCtrl_CHT_Refreshed			該房屋自動刷新.
+HouseCtrl_CHT_LastTraded		最後交易:
+HouseCtrl_CHT_PayTax			繳納物業費
+HouseCtrl_CHT_TradeHouse		交易房屋
+HouseCtrl_CHT_HouseRemoval		房屋拆除
+HouseCtrl_CHT_RemoveEnsure		在將你的房子投放市場之前, 請確保你的房子是空的. 所有列表將被清除, 所有門將被解鎖. 你的房子將開放供參觀, 但你將保留對其的控制權, 直到它被購買為止.
+HouseCtrl_CHT_PutForSale		將此房屋出售
+HouseCtrl_CHT_TakeOffSale		將這棟房子從市場上撤下
 
-HouseCtrl_RUS_AdmOptions		Административные Возможности
-HouseCtrl_RUS_SetDecay			Вернуть разрушаемость дома от ветхости
-HouseCtrl_RUS_SetEternal		Установить защиту дома от ветхости
-HouseCtrl_RUS_SchedDemol		Запланировать снос этого дома
-HouseCtrl_RUS_NumDayDemol		Количество дней до сноса (от 7 до 30)
-HouseCtrl_RUS_DemolitDays		дней
-HouseCtrl_RUS_CancelDemol		Отменить плановый снос
-HouseCtrl_RUS_StartDemol		Снести дом через
+HouseCtrl_CHT_AdmOptions		管理選項
+HouseCtrl_CHT_SetDecay			充許此房屋腐爛
+HouseCtrl_CHT_SetEternal		使該房屋免受腐爛
+HouseCtrl_CHT_SchedDemol		安排將房產進行拆除
+HouseCtrl_CHT_NumDayDemol		拆除前的天數 (7 到 30 之間)
+HouseCtrl_CHT_DemolitDays		天
+HouseCtrl_CHT_CancelDemol		取消預定拆除
+HouseCtrl_CHT_StartDemol		拆除該房產於
 
-HouseCtrl_RUS_SellHouse			Продажа дома
-HouseCtrl_RUS_AskPrice			Введите запрашиваемую цену
-HouseCtrl_RUS_CurForSale		Это здание выставлено на продажу
-HouseCtrl_RUS_StorageSumm		Описание Хранилища
-HouseCtrl_RUS_StorageIncr		Улучшение Склада
-HouseCtrl_RUS_StorageBuy		Увеличить размер склада
-HouseCtrl_RUS_Unlimited			Бесконечно
-HouseCtrl_RUS_StorageMax		Предельный размер склада
-HouseCtrl_RUS_StorageMax2		Лимит Склада
-HouseCtrl_RUS_StorageAvb		Доступный объем склада
-HouseCtrl_RUS_LockdownUse		Закреплено предметов
-HouseCtrl_RUS_LockdownMax		Максимум закреплений
-HouseCtrl_RUS_LockdownMax2		Лимит Закреплений
-HouseCtrl_RUS_LockdownAvb		Доступно закреплений
-HouseCtrl_RUS_SecureUse			Использовано от объема склада
-HouseCtrl_RUS_UseMoveCont		Закреплено контейнеров
-HouseCtrl_RUS_Vendors			Торговцы
+HouseCtrl_CHT_SellHouse			出售該房屋
+HouseCtrl_CHT_AskPrice			輸入你的出價
+HouseCtrl_CHT_CurForSale		這棟房子目前出售
+HouseCtrl_CHT_StorageSumm		房屋存儲摘要
+HouseCtrl_CHT_StorageIncr		增加存儲空間
+HouseCtrl_CHT_StorageBuy		購買存儲空間
+HouseCtrl_CHT_Unlimited			無限制
+HouseCtrl_CHT_StorageMax		最大存儲空間
+HouseCtrl_CHT_StorageMax2		最大存儲空間
+HouseCtrl_CHT_StorageAvb		可用存儲空間
+HouseCtrl_CHT_LockdownUse		已鎖定項數
+HouseCtrl_CHT_LockdownMax		最大鎖定次數
+HouseCtrl_CHT_LockdownMax2		最大鎖定次數
+HouseCtrl_CHT_LockdownAvb		可用鎖定次數
+HouseCtrl_CHT_SecureUse			已保全項數
+HouseCtrl_CHT_UseMoveCont		用於移動板條箱
+HouseCtrl_CHT_Vendors			供應商
 
-HouseCtrl_RUS_IncreaseStor		Улучшить хранилище
-HouseCtrl_RUS_IncrStorInf		Вы можете улучшить размер склада до 100% от начального объема. Стоимость здания, будет скорректирована, но не более чем на 50% от изначальной стоимости объекта.
-HouseCtrl_RUS_IncrStorInf2		Стоимость улучшений будет полностью возмещена в случае демонтажа здания.
-HouseCtrl_RUS_IncrStorAdd		Купить
-HouseCtrl_RUS_IncrStorFor		за
+HouseCtrl_CHT_IncreaseStor		增加存儲空間
+HouseCtrl_CHT_IncrStorInf		你可購買的存儲空間最多可增加100%. 譔房產的價值將根椐您你投資進行調整. 無論您如何購買 100%的升級價值 不應超過房產價值的50% .
+HouseCtrl_CHT_IncrStorInf2		購買存儲空間的價值將在兌換時退還您的銀行箱.
+HouseCtrl_CHT_IncrStorAdd		增加
+HouseCtrl_CHT_IncrStorFor		需
 
-HouseCtrl_RUS_ConvCustomize		Преобразовать в "Строительную площадку" //Construction site
-HouseCtrl_RUS_CustomizeH		Перейти в режим "Стройки"
-HouseCtrl_RUS_RelMoveCrate		Переместить ящик
-HouseCtrl_RUS_CngSignID			Поменять вид вывески
-HouseCtrl_RUS_CngSignCol		Поменять цвет вывески
-HouseCtrl_RUS_CngSignHng		Поменять кронштейн вывески
-HouseCtrl_RUS_CngSignPst		Поменять опору вывески
-HouseCtrl_RUS_CngFoundat		Поменять вид фундамента
-HouseCtrl_RUS_RenameHouse		Переименовать дом
+HouseCtrl_CHT_ConvCustomize		轉換為可定製的房屋" //Construction site
+HouseCtrl_CHT_CustomizeH		定製這座房子"
+HouseCtrl_CHT_RelMoveCrate		重新定位移動箱子
+HouseCtrl_CHT_CngSignID			更改房屋標誌
+HouseCtrl_CHT_CngSignCol		更改房屋標志顏色
+HouseCtrl_CHT_CngSignHng		更改房屋標志吊架
+HouseCtrl_CHT_CngSignPst		更改房屋標志支柱
+HouseCtrl_CHT_CngFoundat		更改地基樣式
+HouseCtrl_CHT_RenameHouse	  重命名房子
 
 
-HouseCtrl_RUS_ListAccess		Список Доступа
-HouseCtrl_RUS_ListBan			Список Изгнания
-HouseCtrl_RUS_ListCoowner		Список Хозяев
-HouseCtrl_RUS_ListFriend		Список Друзей
+HouseCtrl_CHT_ListAccess		訪問列表
+HouseCtrl_CHT_ListBan			禁止列表
+HouseCtrl_CHT_ListCoowner		業主列表
+HouseCtrl_CHT_ListFriend		好友列表
 /////
-HouseCtrl_RUS_ViewCoOwn			Список Хозяев
-HouseCtrl_RUS_AddCoOwn			Добавить Хозяина
-HouseCtrl_RUS_RemCoOwn			Удалить Хозяина
-HouseCtrl_RUS_ClrCoOwn			Очистить Хозяев
+HouseCtrl_CHT_ViewCoOwn			查看共有人列表
+HouseCtrl_CHT_AddCoOwn			添加共有人
+HouseCtrl_CHT_RemCoOwn			刪除共有人
+HouseCtrl_CHT_ClrCoOwn			清除共有人列表
 /////
-HouseCtrl_RUS_ViewFriend		Список Друзей
-HouseCtrl_RUS_AddFriend			Добавить Друга
-HouseCtrl_RUS_RemFriend			Удалить Друга
-HouseCtrl_RUS_ClrFriend			Очистить Друзей
+HouseCtrl_CHT_ViewFriend		查看房屋好友
+HouseCtrl_CHT_AddFriend			添加房屋好友
+HouseCtrl_CHT_RemFriend			刪除房屋好友
+HouseCtrl_CHT_ClrFriend			清除好友列表
 /////
-HouseCtrl_RUS_ViewAccess		Список Доступа
-HouseCtrl_RUS_ClrAccess			Очистить Доступ
+HouseCtrl_CHT_ViewAccess		查看訪問列表
+HouseCtrl_CHT_ClrAccess			清除訪問列表
 /////
-HouseCtrl_RUS_ViewBanList		Список Изгнания
-HouseCtrl_RUS_ClrBanList		Очистить Изгнание
+HouseCtrl_CHT_ViewBanList		查看禁止列表
+HouseCtrl_CHT_ClrBanList		清除禁止列表
 /////
-HouseCtrl_RUS_RemGldhouse		Распустить Штаб
-HouseCtrl_RUS_SetGldhouse		Объявить Штабом
+HouseCtrl_CHT_RemGldhouse		刪除公會聲明
+HouseCtrl_CHT_SetGldhouse		聲明公會大廈
 /////
-HouseCtrl_RUS_RecodeDoor		Кодировать двери,
-HouseCtrl_RUS_OrTelepads		ящики, порталы
-HouseCtrl_RUS_Public			Публичный
-HouseCtrl_RUS_Private			Частный
-HouseCtrl_RUS_ChangeTo			Режим
-// HouseCtrl_RUS_RecodeBox			Boxes
+HouseCtrl_CHT_RecodeDoor		重新編碼門, 箱子
+HouseCtrl_CHT_OrTelepads		或傳送點 
+HouseCtrl_CHT_Public			公共
+HouseCtrl_CHT_Private			私人
+HouseCtrl_CHT_ChangeTo			更改為
+// HouseCtrl_CHT_RecodeBox			重新编码盒
 /////
 
-HouseCtrl_RUS_Houses			Кол-во домов
-HouseCtrl_RUS_PropExempt		Это здание защищено от разрушения.
-HouseCtrl_RUS_PropNoTax			Поэтому вам не нужно платить налог на имущество.
-HouseCtrl_RUS_PropRefl			Это исключение отражено на главной странице данного меню.
-HouseCtrl_RUS_PropLost			Если этот дом будет выставлен на продажу или переедет, льгота будет утрачена.
-HouseCtrl_RUS_EstateTax			Налог на недвижимость для
-HouseCtrl_RUS_House-s			дома(ов)
-HouseCtrl_RUS_PLUS				ПЛЮС
-HouseCtrl_RUS_Addit				Дополнительно
-HouseCtrl_RUS_FlatRate			от стоимости дома (фикс.ставка)
-HouseCtrl_RUS_ResetDec			Обновить таймер разрушения до
-HouseCtrl_RUS_TaxIsDue			Налог может быть уплачен в любое время.
-HouseCtrl_RUS_TaxPrice			Размер налога на недвижимость за
+HouseCtrl_CHT_Houses			房屋
+HouseCtrl_CHT_PropExempt		此房屋已免於腐爛.
+HouseCtrl_CHT_PropNoTax			因此, 你無需繳納物業費.
+HouseCtrl_CHT_PropRefl			此豁免反映在此菜單的內容中.
+HouseCtrl_CHT_PropLost			如果譔房屋出售或搬遷, 則豁免將丟失.
+HouseCtrl_CHT_EstateTax			遺產稅適用於
+HouseCtrl_CHT_House-s			房子
+HouseCtrl_CHT_PLUS				加強
+HouseCtrl_CHT_Addit				附加
+HouseCtrl_CHT_FlatRate			房屋價值 (統一費率)
+HouseCtrl_CHT_ResetDec			將房屋的衰減計時器重置為
+HouseCtrl_CHT_TaxIsDue			物業費可以在任何到期時繳納.
+HouseCtrl_CHT_TaxPrice			你的物業費價格
 
-HouseCtrl_RUS_TaxOf				от
-HouseCtrl_RUS_TaxIs				составляет
-HouseCtrl_RUS_HouseVal			стоимости дома
-HouseCtrl_RUS_HouseVal2			от стоимости дома
-HouseCtrl_RUS_TaxRegRate		регионально
-HouseCtrl_RUS_UpStdAllow		за каждый дом сверх станд.кол-ва
-HouseCtrl_RUS_Pay				Оплатите
-HouseCtrl_RUS_ToAdd				за
-HouseCtrl_RUS_ToQTS				шт.
-HouseCtrl_RUS_NoPropTax			Это здание не облагается налогом.
-HouseCtrl_RUS_StaffOver			Административные Возможности
-HouseCtrl_RUS_ResDecTmr			Уст-ть таймер разрушения на
+HouseCtrl_CHT_TaxOf				的
+HouseCtrl_CHT_TaxIs				是
+HouseCtrl_CHT_HouseVal			房屋價值
+HouseCtrl_CHT_HouseVal2			房屋價值
+HouseCtrl_CHT_TaxRegRate		區域稅率
+HouseCtrl_CHT_UpStdAllow		充許每棟房屋超過標準津貼
+HouseCtrl_CHT_Pay				支付
+HouseCtrl_CHT_ToAdd				添加
+HouseCtrl_CHT_ToQTS				套.
+HouseCtrl_CHT_NoPropTax			譔建築無需繳納物業費.
+HouseCtrl_CHT_StaffOver			管理人員專用
+HouseCtrl_CHT_ResDecTmr			將衰減計時器重置為
 
-HouseCtrl_RUS_WARNING			ВНИМАНИЕ
-HouseCtrl_RUS_Condemn			Вы собираетесь построить новый дом. Размещение этого дома приведет к тому, что <def.bfont_hs_title>уничтожит<def.bfont_black>все остальные ваши дома, которые у вас могут быть.<DEF.BR><DEF.BR>Кроме того, вы не сможете разместить другой дом или передать его вам на один (1) срок неделя реальной жизни.<DEF.BR ><DEF.BR >После того, как вы примете эти условия, эти последствия не могут быть отменены. Переоформление или перенос вашего нового дома не повлияет на другие ваши дома, а также не отменит действие недельного таймера.<DEF.BR><DEF.BR >Если вы абсолютно уверены, что хотите продолжить, нажмите кнопку "Далее" ниже нажмите "ОК".  Если вы не хотите торговать этим домом, нажмите кнопку ОТМЕНА.
+HouseCtrl_CHT_WARNING			警告
+HouseCtrl_CHT_Condemn			你即將放置新房子. 放置此房屋將<def.bfont_hs_title>譴責<def.bfont_black>你可能擁有的任何和所有其他房屋. <DEF.BR><DEF.BR>此外, 你將無法放置其他房屋或將其轉移給你, 為期一周. <DEF.BR><DEF.BR>一旦你接受這些條款, 這些影響就無法逆轉. 重新契約或轉讓你的新房子<def.bfont_hs_title>不會<def.bfont_black> 取消對你其他房子的譴責, 也不會刪除一周計時器. <DEF.BR><DEF.BR >如果你確定要繼續, 請單擊下面 "確定"旁邊的按鈕. 如果你不想交易該房屋, 請單擊 "取消".
 
-HouseCtrl_RUS_DecorFlip			Flip
-HouseCtrl_RUS_DecorUp			Up
-HouseCtrl_RUS_DecorDown			Down
-HouseCtrl_RUS_HousePTools		МАСТЕР УСТАНОВКИ ДОМОВ
-HouseCtrl_RUS_HouseClass		Классические дома
-HouseCtrl_RUS_House2Story		2-х этажные Проектируемые дома
-HouseCtrl_RUS_House3Story		3-х этажные Проектируемые дома
-HouseCtrl_RUS_UnablePlace		Вы не можете установить или купить новый дом, поскольку вы стали владельцем другого дома в течении последних
-HouseCtrl_RUS_TestPlacem		Вы можете протестировать систему размещения дома прямо сейчас, но не сможете установить постоянный дом.
-HouseCtrl_RUS_HouseDescr		Описание дома
-HouseCtrl_RUS_Storages			Склад
-HouseCtrl_RUS_Lockdowns			Закреп.
-HouseCtrl_RUS_Costs				Цена
-HouseCtrl_RUS_BankBal			Банковский баланс
-HouseCtrl_RUS_Close				Закрыть
-HouseCtrl_RUS_Next				Следующий
-HouseCtrl_RUS_Prev				Предыдущий
+HouseCtrl_CHT_DecorFlip			翻轉
+HouseCtrl_CHT_DecorUp			向上
+HouseCtrl_CHT_DecorDown			向下
+HouseCtrl_CHT_HousePTools		房屋佈置工具
+HouseCtrl_CHT_HouseClass		經典房屋
+HouseCtrl_CHT_House2Story		2 層可定製房屋
+HouseCtrl_CHT_House3Story		3 層可定製房屋
+HouseCtrl_CHT_UnablePlace		你目前無法放置新房屋或在交易中接收房屋, 因為您在過去的時間內已經成為房屋的所有者.
+HouseCtrl_CHT_TestPlacem		你現在可以測試房屋放置, 但目前無法創建永久房屋.
+HouseCtrl_CHT_HouseDescr		房屋描述
+HouseCtrl_CHT_Storages			存儲
+HouseCtrl_CHT_Lockdowns			鎖定數
+HouseCtrl_CHT_Costs				成本
+HouseCtrl_CHT_BankBal			銀行余額
+HouseCtrl_CHT_Close				關閉
+HouseCtrl_CHT_Next				下一頁
+HouseCtrl_CHT_Prev				上一頁
 
-HouseCtrl_RUS_Cancel			Отменить
-HouseCtrl_RUS_Confirm			Подтвердить
+HouseCtrl_CHT_Cancel			取消
+HouseCtrl_CHT_Confirm			確認
 
-HouseCtrl_RUS_InvalTrg			Неправильная цель.
+HouseCtrl_CHT_InvalTrg			無效目標.
 
 
 //Available sign colors - Test colors only, set to suit your hues and tastes.
