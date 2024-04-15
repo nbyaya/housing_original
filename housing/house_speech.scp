@@ -5,7 +5,9 @@
 VERSION=X1
 
 [SPEECH spk_house_cmds]
+//所有房屋命令都在此处. 默认为空.
 ON=lock this*
+ON=锁定*
 	ref1 = <region.uid>
 	if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
 		return 0
@@ -13,12 +15,13 @@ ON=lock this*
 		src.targetf f_house_item_lock
 		doswitch <src.f_LangShowNum>
 			src.message @,,1 What do you wish to lockdown?
-			src.message @,,1 Укажите, что вы хотите закрепить?
+			src.message @,,1 您希望锁定什么物品?
 		enddo
 		return 1
 	endif
 
 ON=release this*
+ON=解除*
 	ref1 = <region.uid>
 	if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
 		return 0
@@ -26,25 +29,26 @@ ON=release this*
 		src.targetf f_house_item_unlock
 		doswitch <src.f_LangShowNum>
 			src.message @,,1 What do you wish to release?
-			src.message @,,1 Укажите, что вы хотите открепить?
+			src.message @,,1 您想解除什么物品?
 		enddo
 		return 1
 	endif
 
-// ON=flip this*
-	// ref1 = <region.uid>
-	// if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
-		// return 0
-	// else
-		// src.targetf f_house_item_flip
-		// doswitch <src.f_LangShowNum>
-			// src.message @,,1 What do you wish to flip?
-			// src.message @,,1 Укажите, что вы хотите повернуть?
-		// enddo
-		// return 1
-	// endif
+//ON=flip this*
+	//ref1 = <region.uid>
+	 //if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
+		 //return 0
+	 //else
+		 //src.targetf f_house_item_flip
+		 //doswitch <src.f_LangShowNum>
+			 //src.message @,,1 What do you wish to flip?
+			 //src.message @,,1 你想翻转什么?
+		 //enddo
+		 //return 1
+	 //endif
 
 ON=secure this*
+ON=保全*
 	ref1 = <region.uid>
 	if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <src.isgm>) //<ref1.GetFriendPos <src>> >= 0 || 
 		return 0
@@ -52,12 +56,13 @@ ON=secure this*
 		src.targetf f_house_item_secure
 		doswitch <src.f_LangShowNum>
 			src.message @,,1 What do you wish to secure?
-			src.message @,,1 Укажите, что вы хотите охранять?
+			src.message @,,1 你希望保全什么物品?
 		enddo
 		return 1
 	endif
 
 ON=move north*
+ON=向北移*
 	ref1 = <region.uid>
 	if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
 		return 0
@@ -65,12 +70,13 @@ ON=move north*
 		src.targetf f_house_moveN
 		doswitch <src.f_LangShowNum>
 			src.message @,,1 What do you wish to move?
-			src.message @,,1 Укажите, что вы хотите подвинуть?
+			src.message @,,1 你想移动什么?
 		enddo
 		return 1
 	endif
 
 ON=move south*
+ON=向南移*
 	ref1 = <region.uid>
 	if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
 		return 0
@@ -78,12 +84,13 @@ ON=move south*
 		src.targetf f_house_moveS
 		doswitch <src.f_LangShowNum>
 			src.message @,,1 What do you wish to move?
-			src.message @,,1 Укажите, что вы хотите подвинуть?
+			src.message @,,1 你想移动什么?
 		enddo
 		return 1
 	endif
 
 ON=move east*
+ON=向东移*
 	ref1 = <region.uid>
 	if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
 		return 0
@@ -91,12 +98,13 @@ ON=move east*
 		src.targetf f_house_moveE
 		doswitch <src.f_LangShowNum>
 			src.message @,,1 What do you wish to move?
-			src.message @,,1 Укажите, что вы хотите подвинуть?
+			src.message @,,1 你想移动什么?
 		enddo
 		return 1
 	endif
 
 ON=move west*
+ON=向西移*
 	ref1 = <region.uid>
 	if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
 		return 0
@@ -104,12 +112,13 @@ ON=move west*
 		src.targetf f_house_moveW
 		doswitch <src.f_LangShowNum>
 			src.message @,,1 What do you wish to move?
-			src.message @,,1 Укажите, что вы хотите подвинуть?
+			src.message @,,1 你想移动什么?
 		enddo
 		return 1
 	endif
 
 ON=bank*
+ON=银行*
 	if <def.hs_can_bank>
 		ref1 = <region.uid>
 		if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
@@ -118,13 +127,14 @@ ON=bank*
 			src.bankself
 			doswitch <src.f_LangShowNum>
 				src.sysmessage @,,1 You have <f_math_cat <src.bankbalance>> gold in your Bank Box.
-				src.sysmessage @,,1 На вашем банковском счету находится <f_math_cat <src.bankbalance>> gp
+				src.sysmessage @,,1 你的银行帐户中有 <SRC.bankbalance>  gp
 			enddo
 			return 1
 		endif
 	endif
 
 ON=eject*
+ON=驱逐*
 	ref1 = <region.uid>
 	if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
 		return 0
@@ -132,12 +142,13 @@ ON=eject*
 		src.targetf f_house_eject
 		doswitch <src.f_LangShowNum>
 			src.message @,,1 Select player to eject.
-			src.message @,,1 Укажите персонажа, которого вы хотите удалить с территории дома.
+			src.message @,,1 选择要驱逐的人员.
 		enddo
 		return 1
 	endif
 
 ON=Ban Person*
+ON=禁止*
 	ref1 = <region.uid>
 	if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
 		return 0
@@ -145,12 +156,13 @@ ON=Ban Person*
 		src.targetf f_house_add_list ban
 		doswitch <src.f_LangShowNum>
 			src.message @,,1 Select player to ban.
-			src.message @,,1 Укажите персонажа, которого вы хотите изгнать с территории дома.
+			src.message @,,1 选择要禁止的人员.
 		enddo
 		return 1
 	endif
 
 ON=Place trashcan*
+ON=放置垃圾桶*
 	ref1 = <region.uid>
 	if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
 		return 0
@@ -158,7 +170,7 @@ ON=Place trashcan*
 		if (<ref1.tag0.trashcan>)
 			doswitch <src.f_LangShowNum>
 				src.message @<def.fail>,,1 You already have a trashcan.
-				src.message @<def.fail>,,1 На территории дома уже установлена мусорная корзина.
+				src.message @<def.fail>,,1 你已经有一个垃圾桶了.
 			enddo
 		else
 			serv.newitem i_trashcan
@@ -170,6 +182,7 @@ ON=Place trashcan*
 	endif
 
 ON=Remove trashcan*
+ON=移除垃圾桶*
 	ref1 = <region.uid>
 	if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
 		return 0
@@ -180,13 +193,100 @@ ON=Remove trashcan*
 		else
 			doswitch <src.f_LangShowNum>
 				src.message @<def.fail>,,1 You have no trashcan to remove.
-				src.message @<def.fail>,,1 На территории дома нет мусорной корзины.
+				src.message @<def.fail>,,1 您没有可移除的垃圾桶.
 			enddo
 		endif
 		return 1
 	endif
 
+ON=forge*
+ON=火炉*
+	ref1 = <region.uid>
+	if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
+		return 0
+	else
+		if <isempty <ref1.tag.forge>>
+		   if <SRC.RESTEST 15000 i_gold>
+		      SRC.CONSUME=15000 i_gold
+			    serv.newitem i_forge
+		      new.p=<src.p>
+			    new.attr=attr_move_never
+			    ref1.tag0.forge=<new>
+			    src.sysmessage @32,,1 你放置了一个打铁炉子.
+		     else
+		      src.sysmessage @32,,1 你包里钱不够,价格为15000gold一只.
+		     endif 
+		   else 
+		    ref2=<ref1.tag.forge>
+		      if <ref2.isvalid> && <ref2.baseid>==i_forge
+			        src.sysmessage @32,,1 你已经有一个打铁炉子了.
+		       endif
+		   endif
+		  return 1    
+	 endif
+	  
+ON=Remove forge*
+ON=拆掉火炉*
+	ref1 = <region.uid>
+	if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
+		return 0
+	else
+		if (<ref1.tag0.forge>)
+			try uid.<ref1.tag0.forge>.remove 
+			ref1.tag.forge
+	    src.newgold 10000
+			src.sysmessage @32,,1 您成功的拆掉了打铁炉子, 拆旧10000GOLD.
+		else
+			src.sysmessage @32,,1 您没有可拆掉的打铁炉子.
+		endif
+		return 1
+	endif	
+
+ON=anvil*
+ON=铁毡*
+	ref1 = <region.uid>
+	if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
+		return 0
+	else
+		if <isempty <ref1.tag.anvil>>
+		   if <SRC.RESTEST 15000 i_gold>
+		      SRC.CONSUME=15000 i_gold
+			    serv.newitem i_anvil
+		      new.p=<src.p>
+			    new.attr=attr_move_never
+			    ref1.tag0.anvil=<new>
+			    src.sysmessage @32,,1 你放置了一个铁毡.
+		     else
+		      src.sysmessage @32,,1 你包里钱不够,价格为15000gold一只.
+		     endif 
+		   else 
+		    ref2=<ref1.tag.anvil>
+		      if <ref2.isvalid> && <ref2.baseid>==i_anvil
+			        src.sysmessage @32,,1 你已经有一个铁毡了.
+		       endif
+		   endif
+		  return 1    
+	 endif
+	  
+ON=Remove anvil*
+ON=拆掉铁毡*
+	ref1 = <region.uid>
+	if !(<ref1.isowner <src>> || <ref1.GetCoownerPos <src>> >= 0 || <ref1.GetFriendPos <src>> >= 0 || <src.isgm>)
+		return 0
+	else
+		if (<ref1.tag0.anvil>)
+			try uid.<ref1.tag0.anvil>.remove 
+			ref1.tag.anvil
+	    src.newgold 10000
+			src.sysmessage @32,,1 您成功的拆掉了铁毡, 拆旧10000GOLD.
+		else
+			src.sysmessage @32,,1 您没有可拆掉的铁毡.
+		endif
+		return 1
+	endif		
+
 ON=house commands*
+ON=房子命令*
 	dialogclose d_house_commands
 	sdialog d_house_commands
 	return 1
