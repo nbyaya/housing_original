@@ -101,7 +101,7 @@ if (<housetype> == <def.house_guild>)
 endif
 
 if <tag0.demolition>
-	dhtmlgump 20 *40 370 20 0 0 <def.bfont_hs_red><def.HouseCtrl_<src.f_LangShow>_IncorrPlace>
+	dhtmlgump 20 *40 370 50 0 0 <def.bfont_hs_red><def.HouseCtrl_<src.f_LangShow>_IncorrPlace>
 endif
 
 dhtmlgump 20 *40 370 20 0 0 <def.bfont_hs_title><def.HouseCtrl_<src.f_LangShow>_HouseIsOf> <QVAL (<type>==t_multi_custom)? <def.HouseCtrl_<src.f_LangShow>_Custom>:<def.HouseCtrl_<src.f_LangShow>_Prebuilt>> <def.HouseCtrl_<src.f_LangShow>_Design>
@@ -789,7 +789,7 @@ ONBUTTON=0,89
 			return 1
 		endif
 		src.targetf f_house_transfer <uid>
-		src.sysmessage @,,1 To whom do you wish to transfer full ownership of this property?
+		src.sysmessage @,,1 您希望将此房产的全部所有权转让给谁?
 		return 1
 	elseif (<argn> == 28)//demolish
 		sdialog d_house_demolish
@@ -845,7 +845,7 @@ ONBUTTON=0,89
 				// housetype = <def.house_public>
 				doswitch <src.f_LangShowNum>
 					src.sysmessage @,,1 Your house is now on the market for <dtag0.price> gp.
-					src.sysmessage @,,1 您的房子现在以 <dag0.price> gp 的价格在市场上出售.
+					src.sysmessage @,,1 您的房子现在以 <dtag0.price> gp 的价格在市场上出售.
 				enddo
 				if (<def.hs_can_decay>)
 					tag0.decay_exempt =
@@ -1123,13 +1123,13 @@ ONBUTTON=100,299 // rmv person from (x) list
 			ref5 = <src>
 			doswitch <src.f_LangShowNum>
 				src.sysmessage @,,1 You have removed yourself from the <local.list> list.
-				src.sysmessage @,,1 Вы удалили себя из перечня "<def.HouseCtrl_<src.f_LangShow>_List<local.list>>".
+				src.sysmessage @,,1 您已将自己从 "<def.HouseCtrl_<src.f_LangShow>_List<local.list>>" 列表中删除.
 			enddo
 		else
 			ref5 = <<local.list>.<dlocal.button>.uid>
 			doswitch <src.f_LangShowNum>
 				src.sysmessage @,,1 <<local.list>.<dlocal.button>.name> has been removed from the <local.list> list.
-				src.sysmessage @,,1 <<local.list>.<dlocal.button>.name> был удален из перечня "<def.HouseCtrl_<src.f_LangShow>_List<local.list>>".
+				src.sysmessage @,,1 <<local.list>.<dlocal.button>.name> 已从 "<def.HouseCtrl_<src.f_LangShow>_List<local.list>>" 中删除.
 			enddo
 		endif
 		if (<housetype> == <def.house_private>) && (<ref5.region.uid> == <region.uid>)
@@ -1643,7 +1643,7 @@ ONBUTTON=1,4
 	enddo
 	doswitch <src.f_LangShowNum>
 		src.sysmessage @,,1 <def.HouseCtrl_<src.f_LangShow>_List<local.list>> has been cleared.
-		src.sysmessage @,,1 <def.HouseCtrl_<src.f_LangShow>_List<local.list>> был очищен.
+		src.sysmessage @,,1 <def.HouseCtrl_<src.f_LangShow>_List<local.list>> 已清除.
 	enddo
 	
 	src.dialogclose d_house_menu

@@ -601,7 +601,7 @@ On=@Enter
 					endif
 				else
 					doswitch <src.f_LangShowNum>
-						src.sysmessage @<def.fail>,,1 This is private property. You may not trespass.
+						src.sysmessage @<def.fail>,,1 这里是私人领地. 您不得擅自闯入.
 						src.sysmessage @<def.fail>,,1 这里是私人领地. 您不得擅自闯入.
 					enddo
 					return 1
@@ -754,7 +754,7 @@ On=@HouseDesignCommit
 	if (<isgm>)
 		doswitch <src.f_LangShowNum>
 			src.sysmessage @<def.fail>,,1 You cannot do this whilst designing a house.
-			src.sysmessage @<def.fail>,,1 Вы не можете сделать этого во время проектирования дома.
+			src.sysmessage @<def.fail>,,1 在设计房屋时不能这样做.
 		enddo
 		return 2
 	endif

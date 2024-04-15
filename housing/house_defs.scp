@@ -43,7 +43,7 @@ hs_redeed_crate					1		// house items to crate on redeed
 hs_placement_delay				0		// Number of days until you can place another house after build previous
 // hs_placement_ilshenar_facet		0	// Place house in Inhenar
 
-hs_door_acces_key				1		//Is set this and (<serv.AutoHouseKeys> == 1) - doors open with keys
+hs_door_acces_key				0		//Is set this and (<serv.AutoHouseKeys> == 1) - doors open with keys
 
 //vendor settings
 house_list_vendors				0		// set to 1 to allow players on house list to place vendors, 0 = owner only
@@ -304,7 +304,7 @@ HouseCtrl_CHT_Eject				彈出人員
 HouseCtrl_CHT_Language    切換語言
 ////
 HouseCtrl_CHT_Owned				業主:
-HouseCtrl_CHT_IncorrPlace		譔房屋放置不當.
+HouseCtrl_CHT_IncorrPlace		該房屋放置不當 拆除倒計數中
 HouseCtrl_CHT_Headquarter		這所房子是
 HouseCtrl_CHT_Guild				公會
 HouseCtrl_CHT_BuildOn			構建於:
@@ -406,7 +406,7 @@ HouseCtrl_CHT_RenameHouse	  重命名房子
 
 HouseCtrl_CHT_ListAccess		訪問列表
 HouseCtrl_CHT_ListBan			禁止列表
-HouseCtrl_CHT_ListCoowner		業主列表
+HouseCtrl_CHT_ListCoowner		共有人列表
 HouseCtrl_CHT_ListFriend		好友列表
 /////
 HouseCtrl_CHT_ViewCoOwn			查看共有人列表
@@ -457,7 +457,7 @@ HouseCtrl_CHT_HouseVal2			房屋價值
 HouseCtrl_CHT_TaxRegRate		區域稅率
 HouseCtrl_CHT_UpStdAllow		充許每棟房屋超過標準津貼
 HouseCtrl_CHT_Pay				支付
-HouseCtrl_CHT_ToAdd				添加
+HouseCtrl_CHT_ToAdd				出價
 HouseCtrl_CHT_ToQTS				套.
 HouseCtrl_CHT_NoPropTax			譔建築無需繳納物業費.
 HouseCtrl_CHT_StaffOver			管理人員專用
