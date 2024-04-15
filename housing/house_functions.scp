@@ -60,24 +60,24 @@ return 0
 if (<tag0.access> == house_access_none)
 	doswitch <src.f_LangShowNum>
 		message @,,1 Security Lvl unspecified
-		message @,,1 Уровень доступа не указан
+		message @,,1 安全等级未说明
 	enddo
 	return 1
 endif
 if (<tag0.access> == house_access_owner)
 	doswitch <src.f_LangShowNum>
 		message @,,1 Owner Only
-		message @,,1 Только собственник
+		message @,,1 仅限业主
 	enddo
 elseif (<tag0.access> == house_access_coowner)
 	doswitch <src.f_LangShowNum>
 		message @,,1 Co-Owners Only
-		message @,,1 Только совладельцы
+		message @,,1 仅限共有人以上权限
 	enddo
 elseif (<tag0.access> == house_access_friend)
 	doswitch <src.f_LangShowNum>
 		message @,,1 Friends Only
-		message @,,1 Только друзья
+		message @,,1 仅限朋友以上权限
 	enddo
 elseif (<tag0.access> == house_access_guild)
 	if <link.tag0.is_guild>
@@ -88,7 +88,7 @@ elseif (<tag0.access> == house_access_guild)
 	endif
 	doswitch <src.f_LangShowNum>
 		message @,,1 [<local.abbrev>] Members Only
-		message @,,1 Только члены гильдии [<local.abbrev>]
+		message @,,1 仅限 [<local.abbrev>] 公会成员
 	enddo
 endif
 
@@ -204,7 +204,7 @@ if <ref2.isplayer>
 		enddo
 		doswitch <src.f_LangShowNum>
 			src.sysmessage @<def.fail>,,1 You cannot add yourself to the <def.HouseCtrl_<src.f_LangShow>_List<local.list>>.
-			src.sysmessage @<def.fail>,,1 Вы не можете добавить самого себя в <def.HouseCtrl_<src.f_LangShow>_List<local.list>>.
+			src.sysmessage @<def.fail>,,1 你不能将自己添加到 <def.HouseCtrl_<src.f_LangShow>_List<local.list>> 中.
 		enddo
 		ref1.sdialog d_house_menu
 		return 1
@@ -212,7 +212,7 @@ if <ref2.isplayer>
 	if (<ref1.isowner <ref2>>)
 		doswitch <src.f_LangShowNum>
 			src.sysmessage @<def.fail>,,1 <ref2.name> is the owner of this property.
-			src.sysmessage @<def.fail>,,1 <ref2.name> имеет статус "Собственника" дома.
+			src.sysmessage @<def.fail>,,1 <ref2.name> 是该房屋的业主.
 		enddo
 		ref1.sdialog d_house_menu
 		return 1
@@ -223,8 +223,8 @@ if <ref2.isplayer>
 				src.sysmessage @<def.fail>,,1 remove them from this list before adding them to another.
 			end
 			begin
-				src.sysmessage @<def.fail>,,1 <ref2.name> имеет статус "Совладельца" дома.
-				src.sysmessage @<def.fail>,,1 сперва удалите его из списка совладельцев, прежде чем добавить в другой.
+				src.sysmessage @<def.fail>,,1 <ref2.name> 是该房屋的共有人.
+				src.sysmessage @<def.fail>,,1 在将它们添加到另一个列表之前, 先将它们从该列表中删除.
 			end
 		enddo
 		ref1.sdialog d_house_menu
@@ -236,8 +236,8 @@ if <ref2.isplayer>
 				src.sysmessage @<def.fail>,,1 remove them from this list before adding them to another.
 			end
 			begin
-				src.sysmessage @<def.fail>,,1 <ref2.name> имеет статус "Друга" дома.
-				src.sysmessage @<def.fail>,,1 сперва удалите его из списка друзей, прежде чем добавить в другой.
+				src.sysmessage @<def.fail>,,1 <ref2.name> 是该房屋业主的好友.
+				src.sysmessage @<def.fail>,,1 在将它们添加到另一个列表之前, 先将它们从该列表中删除.
 			end
 		enddo
 		ref1.sdialog d_house_menu
@@ -249,8 +249,8 @@ if <ref2.isplayer>
 				src.sysmessage @<def.fail>,,1 remove them from this list before adding them to another.
 			end
 			begin
-				src.sysmessage @<def.fail>,,1 <ref2.name> входит в Список Доступа дома.
-				src.sysmessage @<def.fail>,,1 сперва удалите его из этого списка, прежде чем добавить в другой.
+				src.sysmessage @<def.fail>,,1 <ref2.name> 在访问列表中.
+				src.sysmessage @<def.fail>,,1 在将它们添加到另一个列表之前, 先将它们从该列表中删除.
 			end
 		enddo
 		ref1.sdialog d_house_menu
@@ -262,8 +262,8 @@ if <ref2.isplayer>
 				src.sysmessage @<def.fail>,,1 remove them from this list before adding them to another.
 			end
 			begin
-				src.sysmessage @<def.fail>,,1 <ref2.name> входит в Список Изгнания дома.
-				src.sysmessage @<def.fail>,,1 сперва удалите его из этого списка, прежде чем добавить в другой.
+				src.sysmessage @<def.fail>,,1 <ref2.name> 被列入禁止名单.
+				src.sysmessage @<def.fail>,,1 在将它们添加到另一个列表之前, 先将它们从该列表中删除.
 			end
 		enddo
 		ref1.sdialog d_house_menu
@@ -278,8 +278,8 @@ if <ref2.isplayer>
 					ref2.sysmessage @52,,1 You have been made a Co-Owner for this property.
 				end
 				begin
-					src.sysmessage @52,,1 <ref2.name> получил статус Совладельца дома.
-					ref2.sysmessage @52,,1 Вас сделали Совладельцем этого дома.
+					src.sysmessage @52,,1 <ref2.name> 已被添加为该房屋的共有人.
+					ref2.sysmessage @52,,1 您已成为该房屋的共有人.
 				end
 			enddo
 			ref2.events -e_house_count_block
@@ -292,8 +292,8 @@ if <ref2.isplayer>
 					src.sysmessage @<def.fail>,,1 Remove someone from the list and try again..
 				end
 				begin
-					src.sysmessage @<def.fail>,,1 Достигнуто максимальное количество Совладельцев, разрешенное для этого типа здания. (<ddef.hs_max_co_owners>)
-					src.sysmessage @<def.fail>,,1 Удалите кого-нибудь из списка и попробуйте заново.
+					src.sysmessage @<def.fail>,,1 您已满此房产允许的最大共有人数 (<ddef.hs_max_co_owners>) .
+					src.sysmessage @<def.fail>,,1 从名单中删除某人, 然后再试一次.
 				end
 			enddo
 			ref1.sdialog d_house_menu
@@ -309,8 +309,8 @@ if <ref2.isplayer>
 					ref2.sysmessage @52,,1 You have been made a Friend for this property.
 				end
 				begin
-					src.sysmessage @52,,1 <ref2.name> получил статус Друга дома.
-					ref2.sysmessage @52,,1 Вас сделали Другом этого дома.
+					src.sysmessage @52,,1 <ref2.name> 已被添加为该房屋业主的好友.
+					ref2.sysmessage @52,,1 您已成为该房屋业主的朋友.
 				end
 			enddo
 			ref2.events -e_house_count_block
@@ -323,8 +323,8 @@ if <ref2.isplayer>
 					src.sysmessage @<def.fail>,,1 Remove someone from the list and try again..
 				end
 				begin
-					src.sysmessage @<def.fail>,,1 Достигнуто максимальное количество Друзей, разрешенное для этого типа здания. (<ddef.hs_max_friends>)
-					src.sysmessage @<def.fail>,,1 Удалите кого-нибудь из списка и попробуйте заново.
+					src.sysmessage @<def.fail>,,1 您已满此房产允许的最大好友人数 (<ddef.hs_max_friends>) .
+					src.sysmessage @<def.fail>,,1 从名单中删除某人, 然后再试一次.
 				end
 			enddo
 			ref1.sdialog d_house_menu
@@ -339,8 +339,8 @@ if <ref2.isplayer>
 					ref2.sysmessage @<def.fail>,,1 You have been banned from this property.
 				end
 				begin
-					src.sysmessage @52,,1 <ref2.name> получил запрет нахождения на территории этого дома.
-					ref2.sysmessage @52,,1 Вам запретили находится на территории этого дома.
+					src.sysmessage @52,,1 <ref2.name> 已被禁止进入.
+					ref2.sysmessage @52,,1 您已被禁止进入本房屋.
 				end
 			enddo
 			ref2.go <link.p>
@@ -353,8 +353,8 @@ if <ref2.isplayer>
 					src.sysmessage @<def.fail>,,1 Remove someone from the list and try again.
 				end
 				begin
-					src.sysmessage @<def.fail>,,1 Список лиц, которым запрещено находится на территории дома, переполнен.
-					src.sysmessage @<def.fail>,,1 Удалите кого-нибудь из списка и попробуйте заново.
+					src.sysmessage @<def.fail>,,1 您的禁止名单已满.
+					src.sysmessage @<def.fail>,,1 从名单中删除某人, 然后再试一次.
 				end
 			enddo
 			ref1.sdialog d_house_menu
@@ -369,8 +369,8 @@ if <ref2.isplayer>
 			ref2.sysmessage @52,,1 You have been granted access to the property.
 				end
 				begin
-					src.sysmessage @52,,1 <ref2.name> был предоставлен доступ на территорию дома.
-					ref2.sysmessage @52,,1 Вам был предоставлен доступ на территорию дома.
+					src.sysmessage @52,,1 <ref2.name> 已获准进入该房产.
+					ref2.sysmessage @52,,1 您已获准进入该房产.
 				end
 			enddo
 			ref1.sdialog d_house_menu
@@ -382,8 +382,8 @@ if <ref2.isplayer>
 					src.sysmessage @<def.fail>,,1 Remove someone from the list and try again.
 				end
 				begin
-					src.sysmessage @<def.fail>,,1 Список лиц, которым разрешено находится на территории дома, переполнен.
-					src.sysmessage @<def.fail>,,1 Удалите кого-нибудь из списка и попробуйте заново.
+					src.sysmessage @<def.fail>,,1 您的访问列表已满.
+					src.sysmessage @<def.fail>,,1 从名单中删除某人, 然后再试一次.
 				end
 			enddo
 			ref1.sdialog d_house_menu
@@ -413,14 +413,14 @@ local.value = <args>
 if (<tag0.demolition>)
 	doswitch <src.f_LangShowNum>
 		src.sysmessage @<def.fail>,,1 This house is scheduled for demolition and cannot be upgraded.
-		src.sysmessage @<def.fail>,,1 Этот дом запланирован к сносу и по этой причине не может быть модернизирован.
+		src.sysmessage @<def.fail>,,1 该房屋计划拆除, 无法进行升级改造.
 	enddo
 	return 1
 endif
 if (<src.gold> < <dlocal.value>)
 	doswitch <src.f_LangShowNum>
 		src.sysmessage @<def.fail>,,1 You lack the funds to pay for this storage upgrade.
-		src.sysmessage @<def.fail>,,1 У вас нет денежных средств для оплаты данного улучшения Хранилища.
+		src.sysmessage @<def.fail>,,1 您没有资金支付存储升级的费用.
 	enddo
 	return 1
 endif
@@ -438,7 +438,7 @@ endif
 IncreasedStorage += <dlocal.storage>
 doswitch <src.f_LangShowNum>
 	src.sysmessage @,,1 <dlocal.value> gp has been deducted from your bank to pay for this upgrade.
-	src.sysmessage @,,1 <dlocal.value> gp были списана с вашего банковского счета для оплаты этого улучшения.
+	src.sysmessage @,,1 已从您的银行中扣除 <dlocal.value>GP 以支付此次升级的费用.
 enddo
 
 [FUNCTION f_house_item_lock]
@@ -450,7 +450,7 @@ if <def.hs_hs_secure_locks_limit>
 	if (<ref1.currentstorage> >= <ref1.maxstorage>)
 		doswitch <src.f_LangShowNum>
 			sysmessage @<def.fail>,,1 Your house reached its storage limit.
-			sysmessage @<def.fail>,,1 В вашем доме закончился объем Хранилища.
+			sysmessage @<def.fail>,,1 您的房屋已达到存储极限.
 		enddo
 		return 1
 	endif
@@ -459,28 +459,28 @@ if (<argo.isitem>) && (<argo.region.uid> == <ref1>)
 	if <argo.isevent.ei_house_lockdown>
 		doswitch <src.f_LangShowNum>
 			argo.message @,,2 This is already locked down!
-			argo.message @,,1 Этот предмет уже закреплен!
+			argo.message @,,1 这已被锁定!
 		enddo
 		return 1
 	endif
 	if <argo.cont>
 		doswitch <src.f_LangShowNum>
 			sysmessage @,,2 You cannot lockdown items inside other containers.
-			sysmessage @,,1 Предметы внутри контейнеров не могут быть закреплены.
+			sysmessage @,,1 无法锁定其他容器内的物品.
 		enddo
 		return 1
 	endif
 	if <argo.f_isContainer>
 		doswitch <src.f_LangShowNum>
 			sysmessage @,,1 You cannot lockdown containers, use secure instead.
-			sysmessage @,,1 Вы не можете закреплять контейнеры, вместо этого используйте функцию Secure.
+			sysmessage @,,1 无法锁定容器, 容器只能使用保全功能.
 		enddo
 		return 1
 	endif
 	ref1.lockitem <argo>
 	doswitch <src.f_LangShowNum>
 		argo.message @,,2 501721 	// Locked down!
-		argo.message @,,1 Предмет закреплен!
+		argo.message @,,1 锁定成功!
 	enddo
 	if ((<argo.attr> & attr_decay) && (<argo.timer> >= 0))
 		argo.tag.decay = 1
@@ -503,7 +503,7 @@ if (<ref1.GetSecuredContainerPos <argo>> = 0) && ((<ref1.IsOwner <uid>>) || (<Is
 	argo.tag.access =
 	doswitch <src.f_LangShowNum>
 		argo.message @,,2 501718	// No longer secure!
-		argo.message @,,1 Контейнер больше ненадежен!
+		argo.message @,,1 容器不再安全!
 	enddo
 elseif (<argo.isitem>) && (<argo.region.uid> == <ref1>)
 	if (<ref1.GetFriendPos <uid>> >= 0) && (<argo.tag0.lockedby> != <uid>)
@@ -517,7 +517,7 @@ elseif (<argo.isitem>) && (<argo.region.uid> == <ref1>)
 	tag.lockedby =
 	doswitch <src.f_LangShowNum>
 		argo.message @,,2 501726	// No longer locked down!
-		argo.message @,,1 Предмет больше не закреплен!
+		argo.message @,,1 不再被锁定!
 	enddo
 endif
 if (<argo.tag0.decay>)
@@ -561,7 +561,7 @@ if (<argo.region.uid> != <ref1>)
 elseif !(<argo.f_isContainer>)
 	doswitch <src.f_LangShowNum>
 		sysmessage @,,2 501712.		// This isn't a container!
-		sysmessage @,,1 Обезопасить можно только контейнеры.
+		sysmessage @,,1 这不是一个容器.
 	enddo
 	return 1
 endif
@@ -569,7 +569,7 @@ ref1.secure <argo>
 argo.tag.access = <ref1.f_house_get_priv <uid>>
 doswitch <src.f_LangShowNum>
 	argo.message @,,2 501716	// Secure!
-	argo.message @,,1 Контейнер теперь надёжен!
+	argo.message @,,1 保全成功!
 enddo
 if ((<argo.attr> & attr_decay) && (<argo.timer> >= 0))
 	argo.tag.decay = 1
@@ -590,7 +590,7 @@ ref1 = <argo.region.uid>
 if (<src> != <ref1.owner>)
 	doswitch <src.f_LangShowNum>
 		src.sysmessage @<def.fail>,,1 You can only modify items which are in your house.
-		src.sysmessage @<def.fail>,,1 Только собственник может модифицировать предметы в этом доме.
+		src.sysmessage @<def.fail>,,1 您只能修改您家中的物品.
 	enddo
 	return 1
 endif
@@ -606,7 +606,7 @@ elseif (<argo.f_isContainer>)
 	else
 		doswitch <src.f_LangShowNum>
 			src.sysmessage @<def.fail>,,1 You can only modify containers which are secured.
-			src.sysmessage @<def.fail>,,1 Можно модифицировать только надежные контейнеры.
+			src.sysmessage @<def.fail>,,1 您只能修改受保全的容器.
 		enddo
 		return 1
 	endif
@@ -625,21 +625,21 @@ ref2 = <argo.region.uid>
 if (<argo> == <src>)
 	doswitch <src.f_LangShowNum>
 		src.sysmessage @<def.fail>,,1 You cannot eject yourself from this property.
-		src.sysmessage @<def.fail>,,1 Невозможно удалить с территории дома самого себя.
+		src.sysmessage @<def.fail>,,1 您不能将自己驱逐出该房产.
 	enddo
 	ref1.sdialog d_house_menu
 	return 1
 elseif (<ref1> != <ref2>)
 	doswitch <src.f_LangShowNum>
 		src.sysmessage @<def.fail>,,1 That person is not in your house.
-		src.sysmessage @<def.fail>,,1 Этот персонаж не находится на территории вашего дома.
+		src.sysmessage @<def.fail>,,1 那个人不在你家.
 	enddo
 	ref1.sdialog d_house_menu
 	return 1
 elseif (<argo.IsOwner <uid>> || (<argo.GetCoownerPos <uid>> >= 0) || (<argo.GetFriendPos <uid>> >= 0) || <argo.IsGM>)
 	doswitch <src.f_LangShowNum>
 		src.sysmessage @<def.fail>,,1 You cannot eject person with this level of access.
-		src.sysmessage @<def.fail>,,1 Невозможно удалить персонажей с таким уровнем доступа.
+		src.sysmessage @<def.fail>,,1 使用此访问级别无法弹出人员.
 	enddo
 	ref1.sdialog d_house_menu
 	return 1
@@ -658,7 +658,7 @@ endif
 if (<argo.type> != t_stone_guild)
 	doswitch <src.f_LangShowNum>
 		sysmessage @<def.fail>,,1 A guildstone must be specified as the target.
-		sysmessage @<def.fail>,,1 В качестве цели нужно указать гильдийный камень.
+		sysmessage @<def.fail>,,1 В 目标必须是公会石.
 	enddo
 	return 1
 endif
@@ -666,7 +666,7 @@ ref1 = <argn>
 if (<argo.topobj.uid> != <argo.uid>) || (<argo.region.uid> != <ref1.region.uid>)
 	doswitch <src.f_LangShowNum>
 		sysmessage @<def.fail>,,1 Guildstone should be located in the region of the house.
-		sysmessage @<def.fail>,,1 Гильдийный камень должен находится на территории дома.
+		sysmessage @<def.fail>,,1 公会石应位于房屋所在区域.
 	enddo
 	return 1
 endif
@@ -684,11 +684,11 @@ if (<argo.type> == t_stone_guild)
 			endif
 		end
 		begin
-			src.sysmessage @,,1 Все члены гильдии <argo.name> получают доступ на территорию дома.
+			src.sysmessage @,,1 现在, 所有<argo.name>公会成员都可以进入这座建筑.
 			if ((<def0.hs_door_acces_key>) && (<serv.AutoHouseKeys>)) // If keys are used, let the server check them.
-				src.sysmessage @,,1 Не забудьте установить уровни доступа и запереть двери, если хотите ограничить доступ.
+				src.sysmessage @,,1 不要忘记设置安全级别, 并在需要限制的区域锁上门.
 			else
-				src.sysmessage @,,1 Не забудьте установить уровни доступа, если хотите ограничить доступ.
+				src.sysmessage @,,1 如果需要限制区域, 不要忘记设置安全级别.
 			endif
 		end
 	enddo
@@ -705,27 +705,27 @@ ref1 = <src.region.uid>
 if (<ref2> == <src.uid>) || (<ref2.isplayer>)
 	doswitch <src.f_LangShowNum>
 		src.sysmessage @<def.fail>,,1 You cannot move that.
-		src.sysmessage @<def.fail>,,1 Вы не можете передвинуть этот объект.
+		src.sysmessage @<def.fail>,,1 你不能移动它.
 	enddo
 	return 1
 elseif (<ref2.link> == <ref1>)
 	doswitch <src.f_LangShowNum>
 		src.sysmessage @<def.fail>,,1 You cannot move locked items.
-		src.sysmessage @<def.fail>,,1 Вы не можете передвигать закрепленные предметы.
+		src.sysmessage @<def.fail>,,1 无法移动锁定的物品.
 	enddo
 	return 1
 endif
 if (<ref2.topobj.ischar>)
 	doswitch <src.f_LangShowNum>
 		src.sysmessage @<def.fail>,,1 You cannot move items inside other containers.
-		src.sysmessage @<def.fail>,,1 Вы не можете передвигать предметы внутри других контейнеров.
+		src.sysmessage @<def.fail>,,1 不能在其他容器内移动物品.
 	enddo
 	return 1
 endif
 if (<ref2.region.uid> != <src.region.uid>)
 	doswitch <src.f_LangShowNum>
 		src.sysmessage @<def.fail>,,1 You cannot move items located outside the house.
-		src.sysmessage @<def.fail>,,1 Вы не можете двигать предметы, расположенные вне территории дома.
+		src.sysmessage @<def.fail>,,1 您不能移动位于房屋外的物品.
 	enddo
 	return 1
 endif
@@ -742,7 +742,7 @@ if (<argo.region.uid> != <src.region.uid>)
 	argo.p = <local.place>
 	doswitch <src.f_LangShowNum>
 		src.sysmessage @<def.fail>,,1 You cannot move items outside the house site.
-		src.sysmessage @<def.fail>,,1 Вы не можете передвигать предметы за пределы дома.
+		src.sysmessage @<def.fail>,,1 您不能将物品移向屋外.
 	enddo
 endif
 argo.update
@@ -758,7 +758,7 @@ if (<argo.region.uid> != <src.region.uid>)
 	argo.p = <local.place>
 	doswitch <src.f_LangShowNum>
 		src.sysmessage @<def.fail>,,1 You cannot move items outside the house site.
-		src.sysmessage @<def.fail>,,1 Вы не можете передвигать предметы за пределы дома.
+		src.sysmessage @<def.fail>,,1 您不能将物品移向屋外.
 	enddo
 endif
 argo.update
@@ -774,7 +774,7 @@ if (<argo.region.uid> != <src.region.uid>)
 	argo.p = <local.place>
 	doswitch <src.f_LangShowNum>
 		src.sysmessage @<def.fail>,,1 You cannot move items outside the house site.
-		src.sysmessage @<def.fail>,,1 Вы не можете передвигать предметы за пределы дома.
+		src.sysmessage @<def.fail>,,1 您不能将物品移向屋外.
 	enddo
 endif
 argo.update
@@ -790,7 +790,7 @@ if (<argo.region.uid> != <src.region.uid>)
 	argo.p = <local.place>
 	doswitch <src.f_LangShowNum>
 		src.sysmessage @<def.fail>,,1 You cannot move items outside the house site.
-		src.sysmessage @<def.fail>,,1 Вы не можете передвигать предметы за пределы дома.
+		src.sysmessage @<def.fail>,,1 您不能将物品移向屋外.
 	enddo
 endif
 argo.update
@@ -805,7 +805,7 @@ elseif !<argo.isplayer>
 elseif (<argo> == <src>)
 	doswitch <src.f_LangShowNum>
 		src.sysmessage @<def.fail>,,1 You cannot transfer house to yourself.
-		src.sysmessage @<def.fail>,,1 Вы не можете передать дом самому себе.
+		src.sysmessage @<def.fail>,,1 您不能将房屋转让给自己.
 	enddo
 	return 1
 endif
@@ -813,7 +813,7 @@ endif
 if !(<argo.houses> < <serv.MaxHousesAccount>)
 	doswitch <src.f_LangShowNum>
 		src.sysmessage @<def.fail>,,1 <argo.name> already own the maximum number of houses permitable.
-		src.sysmessage @<def.fail>,,1 <argo.name> владеет предельным количеством домов.
+		src.sysmessage @<def.fail>,,1 <argo.name> 已拥有允许的最大房屋数量.
 	enddo
 	return 1
 endif
@@ -824,21 +824,21 @@ if (<argo.findtype.t_eq_trade_window.isvalid>)
 			argo.sysmessage @<def.fail>,,1 To continue the trade, you should close the trading window.
 		end
 		begin
-			src.sysmessage @<def.fail>,,1 Сперва <argo.name> должен закрыть окно торговли.
-			argo.sysmessage @<def.fail>,,1 Для продолжения сделки вы должны закрыть окно торговли.
+			src.sysmessage @<def.fail>,,1 首先 <argo.name> 必须关闭打开的交易窗口.
+			argo.sysmessage @<def.fail>,,1 要继续交易, 应关闭交易窗口.
 		end
 	enddo
 	return 1
 elseif (<src.findtype.t_eq_trade_window>)
 	doswitch <src.f_LangShowNum>
 		src.sysmessage @<def.fail>,,1 You already have a trade window open.
-		src.sysmessage @<def.fail>,,1 Сперва закройте окно торговли.
+		src.sysmessage @<def.fail>,,1 您已经打开了交易窗口.
 	enddo
 	return 1
 endif
 doswitch <src.f_LangShowNum>
 	src.sysmessage @,,1 Please wait until <argo.name> accept the trade.
-	src.sysmessage @,,1 Подождите пока <argo.name> подтвердит сделку.
+	src.sysmessage @,,1 请等待 <argo.name> 接受交易.
 enddo
 ref1 = <args>
 src.events +e_house_transfer
@@ -911,8 +911,8 @@ FORCHARS <eval(((<argv[2]>+<argv[3]>)/2)+2)>
 					src.sysmessage @<def.fail>,,1 To continue, remove them and select convert again.
 				end
 				begin
-					src.sysmessage @<def.fail>,,1 Внимание! На территории дома присутствуют продавцы.
-					src.sysmessage @<def.fail>,,1 Чтобы продолжить, удалите их и снова повторите запрос.
+					src.sysmessage @<def.fail>,,1 警告！房屋内有商贩.
+					src.sysmessage @<def.fail>,,1 要继续, 请移除它们并再次选择转换.
 				end
 			enddo
 			return 1
@@ -941,12 +941,12 @@ if (<eval(<value>+<increasedstorage>)> < <serv.multidef.m_foundation_<local.xy>.
 		endif
 		doswitch <src.f_LangShowNum>
 			ref2.sysmessage @,,1 The number of houses you own is now <ref2.houses>
-			ref2.sysmessage @,,1 Количество домов, которыми вы владеете, теперь равно <ref2.houses>.
+			ref2.sysmessage @,,1 您拥有的房屋数量现在是 <ref2.houses>.
 		enddo
 	else
 		doswitch <src.f_LangShowNum>
 			src.sysmessage @<def.fail>,,1 You lack the funds to convert this house.
-			src.sysmessage @<def.fail>,,1 У вас нет денежных средств, чтобы переоборудовать этот дом.
+			src.sysmessage @<def.fail>,,1 您没有资金改建这所房子.
 		enddo
 		return 1
 	endif
@@ -955,7 +955,7 @@ else
 	ref2.gold += <dlocal.total>
 	doswitch <src.f_LangShowNum>
 		ref2.sysmessage @,,1 You have been refunded the difference of <dlocal.total> gp for this conversion.
-		ref2.sysmessage @,,1 Вам была возвращена разница в размере <dlocal.total> gp.
+		ref2.sysmessage @,,1 您已收到 <dlocal.total> gp 的差额退款.
 	enddo
 	local.p = <p>
 	local.buildon = <tag0.buildon>
@@ -974,7 +974,7 @@ else
 	endif
 	doswitch <src.f_LangShowNum>
 		ref2.sysmessage @,,1 The number of houses you own is now <ref2.houses>.
-		ref2.sysmessage @,,1 Количество домов, которыми вы владеете, теперь равно <ref2.houses>.
+		ref2.sysmessage @,,1 您拥有的房屋数量现在是 <ref2.houses>.
 	enddo
 endif
 
