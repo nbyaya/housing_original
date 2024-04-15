@@ -58,27 +58,26 @@ button 150 88 4005 4007 0 5 0
 
 dorigin 7 405
 if (<isowner <src>>) || (<GetCoownerPos <src>> >= 0) || (<GetFriendPos <src>> >= 0) || (<src.isgm>)
-	button - - 4005 4007 1 0 <QVAL (<housetype>==<def.house_private>)? 14:15>
 	dhtmlgump 44 +3 150 20 0 0 <def.bfont_hs_text1><QVAL (<housetype>==<def.house_private>)?<def.HouseCtrl_<src.f_LangShow>_GrantAccess>:<def.HouseCtrl_<src.f_LangShow>_Banish>>
-	
-	button 7 +20 4005 4007 1 0 <QVAL (<housetype>==<def.house_private>)? 12:13>
+	button - - 4005 4007 1 0 <QVAL (<housetype>==<def.house_private>)? 14:15>
 	dhtmlgump 44 +23 150 20 0 0 <def.bfont_hs_text1><QVAL (<housetype>==<def.house_private>)?<def.HouseCtrl_<src.f_LangShow>_Revoke>:<def.HouseCtrl_<src.f_LangShow>_LiftBan>>
+	button 7 +20 4005 4007 1 0 <QVAL (<housetype>==<def.house_private>)? 12:13>	
 else
 	dhtmlgump 44 +3 150 20 0 0 <def.bfont_hs_gray><QVAL (<housetype>==<def.house_private>)?<def.HouseCtrl_<src.f_LangShow>_GrantAccess>:<def.HouseCtrl_<src.f_LangShow>_Banish>>
 	dhtmlgump 44 +23 150 20 0 0 <def.bfont_hs_gray><QVAL (<housetype>==<def.house_private>)?<def.HouseCtrl_<src.f_LangShow>_Revoke>:<def.HouseCtrl_<src.f_LangShow>_LiftBan>>
 endif
 doswitch <src.f_LangShowNum>
 	begin
-		button 360 - 4005 4007 1 0 89
-		button 360 +20 4005 4007 1 0 29
 		dhtmlgump 277 +3 100 20 0 0 <def.bfont_hs_text1><def.HouseCtrl_<src.f_LangShow>_Language>
 		dhtmlgump 277 +23 100 20 0 0 <def.bfont_hs_text1><def.HouseCtrl_<src.f_LangShow>_Eject>
-	end
-	begin
 		button 360 - 4005 4007 1 0 89
 		button 360 +20 4005 4007 1 0 29
+	end
+	begin
 		dhtmlgump 280 +3 100 20 0 0 <def.bfont_hs_text1><def.HouseCtrl_<src.f_LangShow>_Language>
 		dhtmlgump 280 +23 100 20 0 0 <def.bfont_hs_text1><def.HouseCtrl_<src.f_LangShow>_Eject>
+		button 360 - 4005 4007 1 0 89
+		button 360 +20 4005 4007 1 0 29
 	end
 enddo
 
@@ -1570,13 +1569,20 @@ ONBUTTON=0
 
 ONBUTTON=1
 	src.dialogclose d_house_menu
-	ref1 = <tag0.sign> //sign
-	ref1.name = <argtxt[1]>
-	region.name = <argtxt[1]>
-	if <def.hs_can_decay>
-		ref1.attr = 02|010
-		if (<ref1.timer> < 0)
-			ref1.timer = 60*60*24*<def.hs_can_decay>
+	if <ref1.isvalid>
+		ref1.name = <argtxt[1]>
+		ref2 = <ref1.link>
+		if <ref2.isvalid>
+			ref2.name = <argtxt[1]>
+		endif
+		if <def.hs_can_decay>
+			ref1.attr = 02|010
+			if (<ref1.timer> < 0)
+				ref1.timer = 60*60*24*<def.hs_can_decay>
+			endif
+		else
+			ref1.timer = -1
+			ref1.attr = 010
 		endif
 	else
 		ref1.timer = -1

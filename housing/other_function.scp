@@ -192,7 +192,7 @@ sdialog d_language
 
 [FUNCTION f_LangChange]
 if <ISEMPTY <account.tag.LANG>>
-	account.tag.LANG = ENG
+	account.tag.LANG = <def0.LANG_0>
 endif
 local.lang = <f_LangShowNum>
 local.lang += 1
@@ -204,13 +204,13 @@ src.sysmessage @,,1 LANG = <account.tag.LANG>
 
 [FUNCTION f_LangShowNum]
 if <ISEMPTY <account.tag.LANG>>
-	account.tag.LANG = ENG
+	account.tag.LANG = <def0.LANG_0>
 endif
 return <def.<account.tag.LANG>>
 
 [FUNCTION f_LangShow]
 if <ISEMPTY <account.tag.LANG>>
-	account.tag.LANG = ENG
+	account.tag.LANG = <def0.LANG_0>
 endif
 return <account.tag.LANG>
 

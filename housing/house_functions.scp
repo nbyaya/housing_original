@@ -34,7 +34,7 @@ if (<tag0.access> == <def.house_access_all> || <src.IsGM>)
 	return 1
 endif
 local.AccessLevel = <ref1.f_house_get_priv <src>>
-say AccessLevel <dlocal.AccessLevel> - <dtag0.access>
+
 if (<local.AccessLevel> == 0)
 	return 0
 elseif (<tag0.access> == <def.house_access_friend>)
@@ -579,11 +579,14 @@ endif
 argo.resendtooltip 1
 
 [FUNCTION f_d_house_secure]
+ref2 = <argn1>
 if !<argo>
 	src.sysmessage @<def.fail>,,1 <def.HouseCtrl_<src.f_LangShow>_InvalTrg>
+	ref2.sdialog d_house_menu
 	return 1
 elseif !(<argo.isitem>)
 	src.sysmessage @<def.fail>,,1 <def.HouseCtrl_<src.f_LangShow>_InvalTrg>
+	ref2.sdialog d_house_menu
 	return 1
 endif
 ref1 = <argo.region.uid>
@@ -592,25 +595,28 @@ if (<src> != <ref1.owner>)
 		src.sysmessage @<def.fail>,,1 You can only modify items which are in your house.
 		src.sysmessage @<def.fail>,,1 您只能修改您家中的物品.
 	enddo
+	ref2.sdialog d_house_menu
 	return 1
 endif
 if (<argo.type> == t_door) || (<argo.type> == t_door_locked) || (<argo.type> == t_telepad)
 	if <argo.isevent.ei_house_door> || <argo.isevent.ei_house_telepad>
 		dialogclose d_house_secure
 		argo.sdialog d_house_secure
+		return 1
 	endif
 elseif (<argo.f_isContainer>)
 	if <argo.isevent.ei_house_secure>
 		dialogclose d_house_secure
 		argo.sdialog d_house_secure
+		return 1
 	else
 		doswitch <src.f_LangShowNum>
 			src.sysmessage @<def.fail>,,1 You can only modify containers which are secured.
 			src.sysmessage @<def.fail>,,1 您只能修改受保全的容器.
 		enddo
-		return 1
 	endif
 endif
+ref2.sdialog d_house_menu
 
 [FUNCTION f_house_eject]
 if !<argo>
@@ -636,16 +642,15 @@ elseif (<ref1> != <ref2>)
 	enddo
 	ref1.sdialog d_house_menu
 	return 1
-elseif (<argo.IsOwner <uid>> || (<argo.GetCoownerPos <uid>> >= 0) || (<argo.GetFriendPos <uid>> >= 0) || <argo.IsGM>)
+elseif (<ref1.IsOwner <argo>> || (<ref1.GetCoownerPos <argo>> >= 0) || (<ref1.GetFriendPos <argo>> >= 0) || <argo.IsGM>)
 	doswitch <src.f_LangShowNum>
 		src.sysmessage @<def.fail>,,1 You cannot eject person with this level of access.
 		src.sysmessage @<def.fail>,,1 使用此访问级别无法弹出人员.
 	enddo
 	ref1.sdialog d_house_menu
 	return 1
-else
-	argo.go <uid.<ref1.link>.p>
 endif
+argo.go <ref1.link.p>
 
 [FUNCTION f_house_declare_guild]
 if !<argo>
