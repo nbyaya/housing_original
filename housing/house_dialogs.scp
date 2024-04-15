@@ -69,11 +69,15 @@ else
 endif
 doswitch <src.f_LangShowNum>
 	begin
+		button 360 - 4005 4007 1 0 89
 		button 360 +20 4005 4007 1 0 29
+		dhtmlgump 277 +3 100 20 0 0 <def.bfont_hs_text1><def.HouseCtrl_<src.f_LangShow>_Language>
 		dhtmlgump 277 +23 100 20 0 0 <def.bfont_hs_text1><def.HouseCtrl_<src.f_LangShow>_Eject>
 	end
 	begin
+		button 360 - 4005 4007 1 0 89
 		button 360 +20 4005 4007 1 0 29
+		dhtmlgump 280 +3 100 20 0 0 <def.bfont_hs_text1><def.HouseCtrl_<src.f_LangShow>_Language>
 		dhtmlgump 280 +23 100 20 0 0 <def.bfont_hs_text1><def.HouseCtrl_<src.f_LangShow>_Eject>
 	end
 enddo
@@ -141,7 +145,7 @@ if <def.hs_can_decay>
 					local.decaymsg = <def.bfont_hs_text3><dlocal.day> <def.bfont_hs_text2><local.day_name> <def.bfont_hs_text3><dlocal.hour> <def.bfont_hs_text2><local.hour_name> <def.bfont_hs_text3><dlocal.minutes> <def.bfont_hs_text2><local.min_name> //1
 					local.decaymsg = <def.bfont_hs_text3><dlocal.hour> <def.bfont_hs_text2><local.hour_name> <def.bfont_hs_text3><dlocal.minutes> <def.bfont_hs_text2><local.min_name> //2
 					local.decaymsg = <def.bfont_hs_text3>0 <def.bfont_hs_text2><local.hour_name> <def.bfont_hs_text3><dlocal.minutes> <def.bfont_hs_text2><local.min_name> //3
-					local.decaymsg = <def.bfont_hs_text2>менее чем на <def.bfont_hs_text3>1 <def.bfont_hs_text2>минуту //4
+					local.decaymsg = <def.bfont_hs_text2>小於 <def.bfont_hs_text3>1 <def.bfont_hs_text2>分鐘 //4
 				enddo
 			end
 		enddo
@@ -156,7 +160,7 @@ if <def.hs_can_decay>
 				end
 				begin
 					dhtmlgump 20 *30 360 40 0 0 <def.bfont_hs_title><def.HouseCtrl_<src.f_LangShow>_TaxCover><def.br><def.bfont_hs_text3><local.decaymsg>
-					dhtmlgump 20 *40 360 40 0 0 <def.bfont_hs_title><def.HouseCtrl_<src.f_LangShow>_TaxIs> <def.bfont_hs_text3><dlocal.maint><def.bfont_hs_title> gp<def.br>на <def.bfont_hs_text3><ddef.hs_can_decay><def.bfont_hs_title> дней.
+					dhtmlgump 20 *40 360 40 0 0 <def.bfont_hs_title>每 <def.bfont_hs_text3><ddef.hs_can_decay><def.bfont_hs_title> <local.day_name> <def.bfont_hs_title><def.HouseCtrl_<src.f_LangShow>_TaxIs> <def.bfont_hs_text3><dlocal.maint><def.bfont_hs_title> gp.
 				end
 			enddo
 		endif
@@ -430,9 +434,9 @@ endif
 
 if (<isowner <src>>) || (<GetCoownerPos <src>> >= 0) || (<src.isgm>)
 	button 7 360 4005 4007 1 0 24
-	dhtmlgump 44 363 270 20 0 0 <def.bfont_hs_text1><local.txt_Rename>
+	dhtmlgump 44 363 270 30 0 0 <def.bfont_hs_text1><local.txt_Rename>
 else
-	dhtmlgump 44 363 270 20 0 0 <def.bfont_hs_gray><local.txt_Rename>
+	dhtmlgump 44 363 270 30 0 0 <def.bfont_hs_gray><local.txt_Rename>
 endif
 
 page 5
@@ -683,7 +687,7 @@ page 18
 f_house_render_list Friend,1
 
 [DIALOG d_house_menu button]
-ONBUTTON=0,88
+ONBUTTON=0,89
 	ref1 = <tag0.sign> //sign
 	ref2 = <uid> //house
 	ref3 = <owner> //owner
@@ -747,11 +751,11 @@ ONBUTTON=0,88
 					endif
 				end
 				begin
-					src.sysmessage @,,1 Теперь этот дом в публичном доступе. Только те, кто внесен в список изгнанных лиц, не могут войти на территорию.
+					src.sysmessage @,,1 该物业现在对公众开放(商店设置), 只有禁止名单上的人不得进入.
 					if ((<def0.hs_door_acces_key>) && (<serv.AutoHouseKeys>)) // If keys are used, let the server check them.
-						src.sysmessage @,,1 Не забудьте установить уровни доступа и запереть двери, если хотите ограничить доступ.
+						src.sysmessage @,,1 不要忘记设置安全级别，并在需要限制的区域锁上门.
 					else
-						src.sysmessage @,,1 Не забудьте установить уровни доступа, если хотите ограничить доступ.
+						src.sysmessage @,,1 如果需要限制区域, 不要忘记设置安全级别.
 					endif
 				end
 			enddo
@@ -765,7 +769,7 @@ ONBUTTON=0,88
 			endif
 			doswitch <src.f_LangShowNum>
 				src.sysmessage @,,1 This propery is now private & may only be accessed by co-owners/friends & those on the access list
-				src.sysmessage @,,1 Теперь это частная собственность, и доступ к ней могут получить только совладельцы и друзья, а также те, кто включен в списки доступа.
+				src.sysmessage @,,1 该物业现在是私人财产, 只有共有人/朋友和访问列表上的人才能访问.
 			enddo
 		endif
 		sdialog d_house_menu
@@ -781,7 +785,7 @@ ONBUTTON=0,88
 		if (<tag0.demolition>)
 			doswitch <src.f_LangShowNum>
 				src.sysmessage @<def.fail>,,1 This house is scheduled for demolition and cannot be traded.
-				src.sysmessage @<def.fail>,,1 Этот дом запланирован к сносу и по этой причине не может быть продан.
+				src.sysmessage @<def.fail>,,1 该房屋计划拆除, 不能交易.
 			enddo
 			return 1
 		endif
@@ -798,7 +802,7 @@ ONBUTTON=0,88
 		if (<tag0.demolition>)
 			doswitch <src.f_LangShowNum>
 				src.sysmessage @<def.fail>,,1 This house is scheduled for demolition and cannot be sold.
-				src.sysmessage @<def.fail>,,1 Этот дом запланирован к сносу и по этой причине не может быть выставлен на продажу.
+				src.sysmessage @<def.fail>,,1 该房屋计划拆除, 不能出售.
 			enddo
 			sdialog d_house_menu
 			return 1
@@ -812,8 +816,8 @@ ONBUTTON=0,88
 					src.sysmessage @,,1 Don't forget to reset the house settings to your preferences.
 				end
 				begin
-					src.sysmessage @,,1 Вы сняли этот дом с продажи.
-					src.sysmessage @,,1 Не забудьте установить настройки дома в соответствии с вашими предпочтениями.
+					src.sysmessage @,,1 您已将这栋房子从市场上撤下.
+					src.sysmessage @,,1 不要忘记将房屋设置重置为您的首选项.
 				end
 			enddo
 			sdialog d_house_menu
@@ -823,7 +827,7 @@ ONBUTTON=0,88
 			if (<lockdowns>) || (<GetSecuredItems>)
 				doswitch <src.f_LangShowNum>
 					src.sysmessage @<def.fail>,,1 You can't put a house on the market as long it has lockdowns/secure containers.
-					src.sysmessage @<def.fail>,,1 Вы не можете выставить дом на продажу, пока в нем есть закрепленные предметы и надежные контейнеры.
+					src.sysmessage @<def.fail>,,1 房屋内只要有锁定/保全容器, 就不能将房屋投放市场.
 				enddo
 				sdialog d_house_menu
 				return 1
@@ -831,7 +835,7 @@ ONBUTTON=0,88
 				if !(<isnum <argtxt[0]>>) || (<eval <argtxt[0]>> <= 0)
 					doswitch <src.f_LangShowNum>
 						src.sysmessage @,,1 Only positive numeric values are valid.
-						src.sysmessage @,,1 Допустимы только положительные числовые значения.
+						src.sysmessage @,,1 只有正数值有效.
 					enddo
 					sdialog d_house_menu 10
 					return 1
@@ -842,7 +846,7 @@ ONBUTTON=0,88
 				// housetype = <def.house_public>
 				doswitch <src.f_LangShowNum>
 					src.sysmessage @,,1 Your house is now on the market for <dtag0.price> gp.
-					src.sysmessage @,,1 Ваш дом теперь выставлен на продажу за <dtag0.price> gp.
+					src.sysmessage @,,1 您的房子现在以 <dag0.price> gp 的价格在市场上出售.
 				enddo
 				if (<def.hs_can_decay>)
 					tag0.decay_exempt =
@@ -873,7 +877,7 @@ ONBUTTON=0,88
 		if (<tag0.demolition>)
 			doswitch <src.f_LangShowNum>
 				src.sysmessage @<def.fail>,,1 This house is scheduled for demolition and cannot be customized
-				src.sysmessage @<def.fail>,,1 Этот дом запланирован к сносу и по этой причине не может проектироваться.
+				src.sysmessage @<def.fail>,,1 该房屋计划拆除, 无法转成定制模式.
 			enddo
 			return 1
 		endif
@@ -882,7 +886,7 @@ ONBUTTON=0,88
 		elseif (<src.housedesign>)
 			doswitch <src.f_LangShowNum>
 				src.sysmessage @<def.fail>,,1 You are already designing <QVAL (<src.housedesign.uid> == <uid>)? this:another> building.
-				src.sysmessage @<def.fail>,,1 Вы уже проектируете <QVAL (<src.housedesign.uid> == <uid>)? это:другое> здание.
+				src.sysmessage @<def.fail>,,1 您已经在设计 <QVAL (<src.housedesign.uid> == <uid>)? this:another> 建筑.
 			enddo
 			return 1
 		elseif !(<src.isevent.e_house_customize>)
@@ -904,14 +908,14 @@ ONBUTTON=0,88
 			resendtooltip
 			doswitch <src.f_LangShowNum>
 				src.sysmessage @,,1 This building is no longer a guildhouse [<local.abbrev>].
-				src.sysmessage @,,1 Это здание больше не является штаб-квартирой гильдии [<local.abbrev>].
+				src.sysmessage @,,1 该建筑已不再是 [<local.abbrev>]公会房子.
 			enddo
 			return 1
 		else
 			src.targetf, f_house_declare_guild <uid>
 			doswitch <src.f_LangShowNum>
 				src.sysmessage @,,1 Target your guildstone 
-				src.sysmessage @,,1 Укажите гильдийный камень.
+				src.sysmessage @,,1 指向你的公会石.
 			enddo
 			return 1
 		endif
@@ -919,7 +923,7 @@ ONBUTTON=0,88
 		if (<tag0.demolition>)
 			doswitch <src.f_LangShowNum>
 				src.sysmessage @<def.fail>,,1 This house is scheduled for demolition and cannot be converted.
-				src.sysmessage @<def.fail>,,1 Этот дом запланирован к сносу и по этой причине не может быть модернизирован.
+				src.sysmessage @<def.fail>,,1 该房屋已列入拆除计划, 无法改建.
 			enddo
 			return 1
 		endif
@@ -939,14 +943,14 @@ ONBUTTON=0,88
 	elseif (<argn> == 58) //change foundation style
 		doswitch <src.f_LangShowNum>
 			src.sysmessage @,,1 Not implemented at the moment.
-			src.sysmessage @,,1 На данный момент не реализовано.
+			src.sysmessage @,,1 目前尚未实施.
 		enddo
 		sdialog d_house_menu
 		return 1
 	elseif (<argn> == 59) //create/remove hanger
 		doswitch <src.f_LangShowNum>
 			src.sysmessage @,,1 Not implemented at the moment.
-			src.sysmessage @,,1 На данный момент не реализовано.
+			src.sysmessage @,,1 目前尚未实施.
 		enddo
 		sdialog d_house_menu
 		return 1
@@ -958,25 +962,25 @@ ONBUTTON=0,88
 				tag.price =
 				doswitch <src.f_LangShowNum>
 					src.sysmessage @,,1 Property has been removed from housing market.
-					src.sysmessage @,,1 Теперь этот дом снят с продажи.
+					src.sysmessage @,,1 房产已退出住房市场.
 				enddo
 			endif
 			if !(<isnum <argtxt[1]>>)
 				doswitch <src.f_LangShowNum>
 					src.sysmessage @<def.fail>,,1 Invalid entry, days must be numeric (7-30)
-					src.sysmessage @<def.fail>,,1 Нужно указать число от 7 до 30.
+					src.sysmessage @<def.fail>,,1 输入无效, 天数必须为数字(7-30).
 				enddo
 				local.closedialog = 1
 			elseif (<eval <argtxt[1]>> > 30)
 				doswitch <src.f_LangShowNum>
 					src.sysmessage @<def.fail>,,1 Demolition must occur within 30 days.
-					src.sysmessage @<def.fail>,,1 Максимальный период предупреждения перед сносом не может больше 30 дней.
+					src.sysmessage @<def.fail>,,1 必须在 30 天内拆除.
 				enddo
 				local.closedialog = 1
 			elseif (<eval <argtxt[1]>> < 7)
 				doswitch <src.f_LangShowNum>
 					src.sysmessage @<def.fail>,,1 The minimum notice period before demolition can occur is 7 days.
-					src.sysmessage @<def.fail>,,1 Минимальный период предупреждения перед сносом не может менее 7 дней.
+					src.sysmessage @<def.fail>,,1 拆除前的最短通知期为 7 天.
 				enddo
 				local.closedialog = 1
 			endif
@@ -988,7 +992,7 @@ ONBUTTON=0,88
 			ref1.timer = 60*60*24*<eval(<argtxt[1]>)>
 			doswitch <src.f_LangShowNum>
 				src.sysmessage @,,1 You have scheduled this house to be demolished in <dtag0.demolition> days.
-				src.sysmessage @,,1 Вы запланировали снос этого дома через <dtag0.снос> дней.
+				src.sysmessage @,,1 您已计划在 <dtag0.demolition> 天内拆除此房屋.
 			enddo
 			resendtooltip
 			sdialog d_house_menu
@@ -998,7 +1002,7 @@ ONBUTTON=0,88
 			resendtooltip
 			doswitch <src.f_LangShowNum>
 				src.sysmessage @,,1 The scheduled demolition has been cancelled.
-				src.sysmessage @,,1 Запланированный снос был отменен.
+				src.sysmessage @,,1 原定拆除计划已取消.
 			enddo
 			sdialog d_house_menu
 			return 1
@@ -1061,7 +1065,7 @@ ONBUTTON=0,88
 				if (<src.gold> < <dlocal.maintpay>)
 					doswitch <src.f_LangShowNum>
 						src.sysmessage @<def.fail>,,1 You lack the funds to pay the property tax.
-						src.sysmessage @<def.fail>,,1 У вас нет денежных средств, чтобы оплатить налог на недвижимость.
+						src.sysmessage @<def.fail>,,1 您没有资金支付物业费.
 					enddo
 					return 1
 				endif
@@ -1074,14 +1078,14 @@ ONBUTTON=0,88
 					end
 					begin
 						call f_days_name <dlocal.days> //local.day_name
-						src.sysmessage @,,1 Уплачено <dlocal.maintpay> gp за предыдущие <dlocal.days> <local.day_name>.
-						src.sysmessage @,,1 Ваша недвижимость оплачена на следующие <ddef.hs_can_decay> дней.
+						src.sysmessage @,,1 已支付 <dlocal.maintpay>GP, 增加 <local.day_name> 物业费 <dlocal.days> 天.
+						src.sysmessage @,,1 您已缴纳未来 <ddef.hs_can_decay> 天的物业费.
 					end
 				enddo
 			else
 				doswitch <src.f_LangShowNum>
 					src.sysmessage @<def.fail>,,1 You cannot pay more property tax yet.
-					src.sysmessage @<def.fail>,,1 В данный момент оплата налога на недвижимость не требуется.
+					src.sysmessage @<def.fail>,,1 您还不能支付更多的物业费.
 				enddo
 				return 1
 			endif
@@ -1090,7 +1094,7 @@ ONBUTTON=0,88
 			serv.log <src.name>(<src.account>)[<src.uid>] update house <name>(<baseid>)[<uid>] decay timer of owner <ref3.name>(<ref3.account>)[<ref3.uid>]
 			doswitch <src.f_LangShowNum>
 				src.sysmessage @<def.fail>,,1 The house decay timer has been updated by a staff.
-				src.sysmessage @<def.fail>,,1 Таймер разрушения дома обновлен представителем персонала.
+				src.sysmessage @<def.fail>,,1 房屋衰减计时器已由一名管理人员更新.
 			enddo
 		endif
 	elseif (<argn> == 86)
@@ -1106,6 +1110,9 @@ ONBUTTON=0,88
 		ref1.attr |= 02
 		ref1.timer = 60*60*24*<def.hs_can_decay>
 		sdialog d_house_menu
+	elseif (<argn> == 89) //language
+	    sdialog d_language
+		
 	endif
 
 ONBUTTON=100,299 // rmv person from (x) list 
@@ -1130,7 +1137,7 @@ ONBUTTON=100,299 // rmv person from (x) list
 			ref5.go <ref1.p>
 			doswitch <src.f_LangShowNum>
 				ref5.sysmessage @<def.fail>,,1 This is private property, you no longer have permission to enter.
-				ref5.sysmessage @<def.fail>,,1 Это частная собственность, у вас больше нет разрешения на вход.
+				ref5.sysmessage @<def.fail>,,1 这里是私人领地, 您已无权进入.
 			enddo
 		endif
 		if (<<local.list><qval (strmatch(*access*,<local.list>))?es:s>> < 2 )
@@ -1239,8 +1246,8 @@ ONBUTTON=1 // demolish
 				src.sysmessage @,,1 You must remove the guild declaration and move the guildstone before you can demolish the building.
 			end
 			begin
-				src.sysmessage @<def.fail>,,1 Это здание является штаб-квартирой гильдии [<local.abbrev>]
-				src.sysmessage @,,1 Вы должны распустить штаб гильдии и переместить гильдийный камень, прежде чем сможете снести здание.
+				src.sysmessage @<def.fail>,,1 这座房子是[<local.abbrev>] 公会驻地.
+				src.sysmessage @,,1 在拆除建筑之前, 您必须移除公会宣言并移动公会石.
 			end
 		enddo
 		src.dialogclose d_house_menu
@@ -1250,35 +1257,35 @@ ONBUTTON=1 // demolish
 	local.total = <eval((<value>+<tag0.boughtstorage>)+<tag0.construction>)>
 	doswitch <src.f_LangShowNum>
 		src.sysmessage @,,1 You spent <dlocal.total> gp for upgrades on this property.
-		src.sysmessage @,,1 Вы потратили <dlocal.total> gp на оборудование этого дома.
+		src.sysmessage @,,1 您花费了 <dlocal.total> gp 用于此房产的升级.
 	enddo
 	if <def.hs_demolish_fee>
 		local.demolishfee = <muldiv <dlocal.total>,<ddef.hs_demolish_fee>,100>
 		local.total -= <dlocal.demolishfee>
 		doswitch <src.f_LangShowNum>
 			src.sysmessage @,,1 Your demolish fee of <dlocal.demolishfee> gp was deducted from refund.
-			src.sysmessage @,,1 Плата за демонтаж в размере <dlocal.demolishfee> gp будет вычтена из суммы возмещения.
+			src.sysmessage @,,1 您的拆迁费 <dlocal.demolishfee> gp 已从退款中扣除.
 		enddo
 	endif
 	if <ref1.isowner <src>>
 		src.gold += <dlocal.total>
 		doswitch <src.f_LangShowNum>
 			src.sysmessage @,,1 You have been refunded <dlocal.total> gp.
-			src.sysmessage @,,1 Вам было возвращено <dlocal.total> gp.
+			src.sysmessage @,,1 您已获得 <dlocal.total> gp 退款.
 		enddo
 	else
 		ref2 = <ref1.owner>
 		ref2.gold += <dlocal.total>
 		doswitch <src.f_LangShowNum>
 			src.sysmessage @,,1 <ref2.name> was refunded <dlocal.total> gp.
-			src.sysmessage @,,1 <ref2.name> получил <dlocal.total> gp.
+			src.sysmessage @,,1 <ref2.name> 已退还 <dlocal.total> gp.
 		enddo
 	endif
 	src.f_house_remove_allitems <uid>
 	remove
 	doswitch <src.f_LangShowNum>
 		src.sysmessage @,,1 The number of houses you own is now <src.houses>.
-		src.sysmessage @,,1 Количество домов, которыми вы владеете, теперь равно <src.houses>.
+		src.sysmessage @,,1 您拥有的房屋数量现在是 <src.houses>.
 	enddo
 	region.allclients.update
 
@@ -1291,8 +1298,8 @@ ONBUTTON=2
 				src.sysmessage @,,1 You must remove the guild declaration and move the guildstone before you can redeed the building.
 			end
 			begin
-				src.sysmessage @<def.fail>,,1 Это здание является штаб-квартирой гильдии [<local.abbrev>]
-				src.sysmessage @,,1 Вы должны распустить штаб гильдии и переместить гильдийный камень, прежде чем сможете снести здание.
+				src.sysmessage @<def.fail>,,1 这座房子是[<local.abbrev>] 公会驻地.
+				src.sysmessage @,,1 必须先移除公会宣言并移动公会石, 然后才能兑换建筑.
 			end
 		enddo
 		src.dialogclose d_house_menu
@@ -1303,21 +1310,21 @@ ONBUTTON=2
 		local.total = <eval((<value>+<tag0.boughtstorage>)+<tag0.construction>)>
 		doswitch <src.f_LangShowNum>
 			src.sysmessage @,,1 You spent <dlocal.total> gp for upgrades on this property.
-			src.sysmessage @,,1 Вы потратили <dlocal.total> gp на оборудование этого дома.
+			src.sysmessage @,,1 您花费了 <dlocal.total> gp 用于此房产的升级.
 		enddo
 		if <def.hs_redeed_fee>
 			local.redeedfee = <muldiv <dlocal.total>,<ddef.hs_redeed_fee>,100>
 			local.total -= <dlocal.redeedfee>
 			doswitch <src.f_LangShowNum>
 				src.sysmessage @,,1 Your redeed fee was <dlocal.redeedfee> gp.
-				src.sysmessage @,,1 Плата за возврат свитка установки дома составила <dlocal.redeedfee> gp.
+				src.sysmessage @,,1 您的兑换费用为 <dlocal.redeedfee> gp.
 			enddo
 		endif
 		src.gold += <dlocal.total>
 		remove
 		doswitch <src.f_LangShowNum>
 			src.sysmessage @,,1 You have been refunded <dlocal.total> gp.
-			src.sysmessage @,,1 Вам было возвращено <dlocal.total> gp.
+			src.sysmessage @,,1 您已获得 <dlocal.total> gp 退款.
 		enddo
 	elseif (<type> == t_multi)
 		local.total = <eval(<value>+<tag0.boughtstorage>)>
@@ -1327,7 +1334,7 @@ ONBUTTON=2
 			if (<dlocal.refund> > <dlocal.redeedfee>)
 				doswitch <src.f_LangShowNum>
 					src.sysmessage @,,1 You spent <dlocal.refund> gp for upgrades on this property.
-					src.sysmessage @,,1 Вы потратили <dlocal.refund> gp на оборудование этого дома.
+					src.sysmessage @,,1 您花费了 <dlocal.refund> gp 用于此房产的升级.
 				enddo
 				local.refund -= <dlocal.redeedfee>
 				src.gold += <dlocal.refund>
@@ -1337,8 +1344,8 @@ ONBUTTON=2
 						src.sysmessage @,,1 You have been refunded <dlocal.refund> gp.
 					end
 					begin
-						src.sysmessage @,,1 Плата за возврат свитка установки дома в размере <dlocal.redeedfee> gp будет вычтена из суммы возмещения.
-						src.sysmessage @,,1 Вам было возвращено <dlocal.refund> gp.
+						src.sysmessage @,,1 您的 <dlocal.redeedfee> gp 兑换费用已从退款中扣除.
+						src.sysmessage @,,1 已收到退款 <dlocal.refund> gp.
 					end
 				enddo
 			else
@@ -1346,7 +1353,7 @@ ONBUTTON=2
 				if (<src.gold> < <dlocal.redeedfee>)
 					doswitch <src.f_LangShowNum>
 						src.sysmessage @<def.fail>,,1 You lack the funds to redeed this property.
-						src.sysmessage @<def.fail>,,1 У вас нет денежных средств, чтобы оплатить возврат свитка установки дома.
+						src.sysmessage @<def.fail>,,1 您没有资金赎回该房产.
 					enddo
 					sdialog d_house_menu 5
 					return 1
@@ -1354,7 +1361,7 @@ ONBUTTON=2
 					src.gold -= <dlocal.redeedfee>
 					doswitch <src.f_LangShowNum>
 						src.sysmessage @<def.fail>,,1 <dlocal.redeedfee> gp has been deducted from your balance to pay for this redeed.
-						src.sysmessage @<def.fail>,,1 <dlocal.redeedfee> gp были списаны с вашего баланса для оплаты возврата свитка установки дома.
+						src.sysmessage @<def.fail>,,1 已从您的余额中扣除 <dlocal.redeedfee>GP 以支付此次赎回的费用.
 					enddo
 				endif
 			endif
@@ -1362,7 +1369,7 @@ ONBUTTON=2
 			src.gold += <dlocal.refund>
 			doswitch <src.f_LangShowNum>
 				src.sysmessage @<def.fail>,,1 You have been refunded <dlocal.refund> gp.
-				src.sysmessage @<def.fail>,,1 Вам было возвращено <dlocal.refund> gp.
+				src.sysmessage @<def.fail>,,1 您已收到退款 <dlocal.refund> gp.
 			enddo
 		endif
 		if (<ddef.hs_redeed_crate> == 1)
@@ -1371,7 +1378,7 @@ ONBUTTON=2
 		redeed
 		doswitch <src.f_LangShowNum>
 			src.sysmessage @,,1 The number of houses you own is now <src.houses>.
-			src.sysmessage @,,1 Количество домов, которыми вы владеете, теперь равно <src.houses>.
+			src.sysmessage @,,1 您拥有的房屋数量现在是 <src.houses>.
 		enddo
 	endif
 	region.allclients.update
@@ -1442,7 +1449,7 @@ ONBUTTON=1
 	if (<src.gold> < <dlocal.total>)
 		doswitch <src.f_LangShowNum>
 			src.sysmessage @<def.fail>,,1 You lack the funds to purchase this property.
-			src.sysmessage @<def.fail>,,1 У вас нет денежных средств для покупки этого дома.
+			src.sysmessage @<def.fail>,,1 您缺乏购买该房产的资金.
 		enddo
 		return 1
 	endif
@@ -1451,7 +1458,7 @@ ONBUTTON=1
 		if (<src.houses> >= <serv.MaxHousesAccount>)
 			doswitch <src.f_LangShowNum>
 				src.sysmessage @<def.fail>,,1 You already own the maximum number of houses permitable.
-				src.sysmessage @<def.fail>,,1 Вы владеет предельным количеством домов.
+				src.sysmessage @<def.fail>,,1 您已拥有允许的最大房屋数量.
 			enddo
 			return 1
 		endif
@@ -1485,8 +1492,8 @@ else
 						ref3.sysmessage @,,1 The number of houses you own is now <ref3.houses>
 					end
 					begin
-						ref3.sysmessage @,,1 Ваш дом был продан. <dlocal.total> gp были помещены в вашу банковскую ячейку.
-						ref3.sysmessage @,,1 Количество домов, которыми вы владеете, теперь равно <ref3.houses>.
+						ref3.sysmessage @,,1 您的房子已售出, <dlocal.total> GP 已存入您的银行账户.
+						ref3.sysmessage @,,1 您拥有的房屋数量现在是 <ref3.houses>.
 					end
 				enddo
 			endif
@@ -1498,8 +1505,8 @@ else
 						ref3.sysmessage @,,1 The number of houses you own is now <ref3.houses>
 					end
 					begin
-						ref3.sysmessage @,,1 Представитель персонала <src.name> переписал ваш дом на себя.
-						ref3.sysmessage @,,1 Количество домов, которыми вы владеете, теперь равно <ref3.houses>.
+						ref3.sysmessage @,,1 您的房屋已被 GM <src.name> 转让.
+						ref3.sysmessage @,,1 您拥有的房屋数量现在是 <ref3.houses>.
 					end
 				enddo
 			endif
@@ -1514,10 +1521,10 @@ doswitch <src.f_LangShowNum>
 		src.sysmessage @,,1 The number of houses you own is now <src.houses>.
 	end
 	begin
-		src.sysmessage @,,1 Теперь вы являетесь собственником этой недвижимости.
-		src.sysmessage @,,1 В данный момент дом находится в публичном доступе.
-		src.sysmessage @,,1 Не забудьте установить уровни доступа согласно вашим предпочтениям.
-		src.sysmessage @,,1 Количество домов, которыми вы владеете, теперь равно <src.houses>.
+		src.sysmessage @,,1 您现在是该房屋的业主.
+		src.sysmessage @,,1 该房屋目前设置为公共(商店设置).
+		src.sysmessage @,,1 不要忘记根据自己的喜好更改设置.
+		src.sysmessage @,,1 您拥有的房屋数量现在是 <src.houses>.
 	end
 enddo
 ref4.tag0.forsale =
@@ -1716,23 +1723,23 @@ ONBUTTON=1,5
 	doswitch <eval(<argn> - 1)>
 		doswitch <src.f_LangShowNum>
 			src.sysmessage @,,1 Only the Owner may now open this <name>.
-			src.sysmessage @,,1 Только собственник может открыть <name>.
+			src.sysmessage @,,1 现在只有业主可以打开此 <name>.
 		enddo
 		doswitch <src.f_LangShowNum>
 			src.sysmessage @,,1 Only the Owner & Co-owners may now open this <name>.
-			src.sysmessage @,,1 Только собственник и совладельцы могут открывать <name>.
+			src.sysmessage @,,1 现在只有业主和共有人可以打开此 <name>.
 		enddo
 		doswitch <src.f_LangShowNum>
 			src.sysmessage @,,1 Only the Owner, Co-owners & Friends of the house may now open this <name>.
-			src.sysmessage @,,1 Только собственник, совладельцы и друзья могут открывать <name>.
+			src.sysmessage @,,1 现在只有业主、共有人和朋友可以打开此 <name>.
 		enddo
 		doswitch <src.f_LangShowNum>
 			src.sysmessage @,,1 Guild members may now open this <name>.
-			src.sysmessage @,,1 Только члены гильдии могут открывать <name>.
+			src.sysmessage @,,1 公会成员现在可以打开此 <name>.
 		enddo
 		doswitch <src.f_LangShowNum>
 			src.sysmessage @,,1 Everyone can open <name> now.
-			src.sysmessage @,,1 Кто угодно может открывать <name>.
+			src.sysmessage @,,1 所有人可以打开此 <name>.
 		enddo
 	enddo
 	
@@ -1745,18 +1752,18 @@ f_house_dialog 27,25,445,44
 button 438 28 4017 4018 1 0 0
 doswitch <src.f_LangShowNum>
 	dhtmlgump 180 39 180 20 0 0 <def.bfont_hs_title>HOUSE VERBAL COMMANDS
-	dhtmlgump 180 39 180 20 0 0 <def.bfont_hs_title>Речевые Команды
+	dhtmlgump 180 40 180 20 0 0 <def.bfont_hs_title>房子命令菜單列表
 enddo
 
-f_house_dialog 27,71,445,300
+f_house_dialog 27,71,445,380
 doswitch <src.f_LangShowNum>
 	begin
 		dhtmlgump 60 84 120 20 0 0 <def.bfont_hs_title>COMMAND
 		dhtmlgump 220 84 120 20 0 0 <def.bfont_hs_title>DESCRIPTION
 	end
 	begin
-		dhtmlgump 60 84 120 20 0 0 <def.bfont_hs_title>Команда
-		dhtmlgump 220 84 160 20 0 0 <def.bfont_hs_title>Описание
+		dhtmlgump 60 84 120 20 0 0 <def.bfont_hs_title>命令
+		dhtmlgump 200 84 160 20 0 0 <def.bfont_hs_title>說明
 	end
 enddo
 
@@ -1767,8 +1774,8 @@ doswitch <src.f_LangShowNum>
 		dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Locks an item down
 	end
 	begin
-		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>Lock This
-		dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Закрепить предмет
+		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>锁定
+		dhtmlgump +140 - 260 20 0 0 <def.bfont_hs_text3>鎖定物品
 	end
 enddo
 
@@ -1778,8 +1785,8 @@ doswitch <src.f_LangShowNum>
 		dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Releases an item
 	end
 	begin
-		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>Release This
-		dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Открепить предмет
+		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>解除
+		dhtmlgump +140 - 260 20 0 0 <def.bfont_hs_text3>解除鎖定和保全
 	end
 enddo
 
@@ -1789,8 +1796,8 @@ doswitch <src.f_LangShowNum>
 		dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Adds security to containers
 	end
 	begin
-		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>Secure This
-		dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Установите охрану на сундук
+		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>保全
+		dhtmlgump +140 - 260 20 0 0 <def.bfont_hs_text3>為容器增加安全性
 	end
 enddo
 
@@ -1800,8 +1807,8 @@ doswitch <src.f_LangShowNum>
 		dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Moves targeted item north
 	end
 	begin
-		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>Move North
-		dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Переместить предмет на Север
+		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>向北移
+		dhtmlgump +140 - 260 20 0 0 <def.bfont_hs_text3>將目標物品向北移動
 	end
 enddo
 
@@ -1811,8 +1818,8 @@ doswitch <src.f_LangShowNum>
 		dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Moves targeted item south
 	end
 	begin
-		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>Move South
-		dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Переместить предмет на Юг
+		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>向南移
+		dhtmlgump +140 - 260 20 0 0 <def.bfont_hs_text3>將目標物品向南移動
 	end
 enddo
 
@@ -1822,8 +1829,8 @@ doswitch <src.f_LangShowNum>
 		dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Moves targeted item east
 	end
 	begin
-		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>Move East
-		dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Переместить предмет на Восток
+		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>向东移
+		dhtmlgump +140 - 260 20 0 0 <def.bfont_hs_text3>將目標物品向東移動
 	end
 enddo
 
@@ -1833,8 +1840,8 @@ doswitch <src.f_LangShowNum>
 		dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Moves targeted item west
 	end
 	begin
-		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>Move West
-		dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Переместить предмет на Запад
+		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>向西移
+		dhtmlgump +140 - 260 20 0 0 <def.bfont_hs_text3>將目標物品向西移動
 	end
 enddo
 
@@ -1844,8 +1851,8 @@ doswitch <src.f_LangShowNum>
 		dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Bans a player from your house
 	end
 	begin
-		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>Ban
-		dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Запретить доступ на территорию
+		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>禁止
+		dhtmlgump +140 - 260 20 0 0 <def.bfont_hs_text3>禁止玩家進入你的房子
 	end
 enddo
 
@@ -1855,8 +1862,8 @@ doswitch <src.f_LangShowNum>
 		dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Removes a player from your house
 	end
 	begin
-		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>Eject
-		dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Удалите игрока с территории
+		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>驱逐
+		dhtmlgump +140 - 260 20 0 0 <def.bfont_hs_text3>將玩家從你的房子上驅逐
 	end
 enddo
 
@@ -1866,8 +1873,8 @@ doswitch <src.f_LangShowNum>
 		dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Places a trashcan where you are standing
 	end
 	begin
-		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>Place Trashcan
-		dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Установить мусорный контейнер
+		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>放置垃圾桶
+		dhtmlgump +140 - 260 40 0 0 <def.bfont_hs_text3>在你站立的地方放垃圾桶
 	end
 enddo
 
@@ -1877,11 +1884,54 @@ doswitch <src.f_LangShowNum>
 		dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Removes a trashcan
 	end
 	begin
-		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>Remove Trashcan
-		dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Удалить мусорный контейнер
+		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>移除垃圾桶
+		dhtmlgump +140 - 260 40 0 0 <def.bfont_hs_text3>移除房子範圍內的垃圾桶
 	end
 enddo
 
+doswitch <src.f_LangShowNum>
+	begin
+		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>forge
+		dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Put a fireplace where you stand
+	end
+	begin
+		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>火炉
+		dhtmlgump +140 - 260 40 0 0 <def.bfont_hs_text3>在你站立的地方放火炉
+	end
+enddo
+
+doswitch <src.f_LangShowNum>
+	begin
+		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>Remove forge
+		dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Remove fireplace from the house grounds
+	end
+	begin
+		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>拆掉火炉
+		dhtmlgump +140 - 260 40 0 0 <def.bfont_hs_text3>移除房子範圍內的火炉
+	end
+enddo
+
+doswitch <src.f_LangShowNum>
+	begin
+		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>anvil
+		dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Put the felt where you're standing
+	end
+	begin
+		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>铁毡
+		dhtmlgump +140 - 260 40 0 0 <def.bfont_hs_text3>在你站立的地方放铁毡
+	end
+enddo
+
+doswitch <src.f_LangShowNum>
+	begin
+		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>Remove anvil
+		dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Remove iron felts from the house area
+	end
+	begin
+		dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>拆掉铁毡
+		dhtmlgump +140 - 260 40 0 0 <def.bfont_hs_text3>移除房子範圍內的铁毡
+	end
+enddo
 
 if <def.hs_can_bank>
 	doswitch <src.f_LangShowNum>
@@ -1890,8 +1940,8 @@ if <def.hs_can_bank>
 			dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Opens your bank box
 		end
 		begin
-			dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>Bank
-			dhtmlgump +120 - 260 20 0 0 <def.bfont_hs_text3>Открыть банковскую ячейку
+			dhtmlgump - *20 120 20 0 0 <def.bfont_hs_text1>银行
+			dhtmlgump +140 - 260 20 0 0 <def.bfont_hs_text3>打开银行箱子
 		end
 	enddo
 endif
@@ -2042,7 +2092,7 @@ ONBUTTON=1,20
 	if (<src.gold> < <serv.itemdef.<local.item>.value>)
 		doswitch <src.f_LangShowNum>
 			src.sysmessage @<def.fail>,,1 You lack the funds avaible in your bankbox to purchase this house. Try placing a smaller house, or adding gold to your bankbox.
-			src.sysmessage @<def.fail>,,1 У вас нет денежных средств для покупки этого дома. Попробуйте построить дом поменьше или пополните свой банковский счет.
+			src.sysmessage @<def.fail>,,1 您的银行账户中没有足够的资金来购买这栋房屋. 尝试放置一栋较小的房屋, 或向您的银行账户中添加GOLD.
 		enddo
 		return 1
 	endif
@@ -2080,7 +2130,7 @@ ONBUTTON=1,47
 	if (<src.gold> < <serv.itemdef.<local.item>.value>)
 		doswitch <src.f_LangShowNum>
 			src.sysmessage @<def.fail>,,1 You lack the funds avaible in your bankbox to purchase this house. Try placing a smaller house, or adding gold to your bankbox.
-			src.sysmessage @<def.fail>,,1 У вас нет денежных средств для покупки этого дома. Попробуйте построить дом поменьше или пополните свой банковский счет.
+			src.sysmessage @<def.fail>,,1 您的银行账户中没有足够的资金来购买这栋房屋. 尝试放置一栋较小的房屋, 或向您的银行账户中添加GOLD.
 		enddo
 		return 1
 	endif
@@ -2118,7 +2168,7 @@ ONBUTTON=1,55
 	if (<src.gold> < <serv.itemdef.<local.item>.value>)
 		doswitch <src.f_LangShowNum>
 			src.sysmessage @<def.fail>,,1 You lack the funds avaible in your bankbox to purchase this house. Try placing a smaller house, or adding gold to your bankbox.
-			src.sysmessage @<def.fail>,,1 У вас нет денежных средств для покупки этого дома. Попробуйте построить дом поменьше или пополните свой банковский счет.
+			src.sysmessage @<def.fail>,,1 您的银行账户中没有足够的资金来购买这栋房屋. 尝试放置一栋较小的房屋, 或向您的银行账户中添加GOLD.
 		enddo
 		return 1
 	endif
