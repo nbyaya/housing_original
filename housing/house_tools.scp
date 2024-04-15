@@ -15,7 +15,7 @@ ON=@DClick
 	if (<topobj> != <src>)
 		doswitch <src.f_LangShowNum>
 			src.sysmessage @<def.fail>,,1 The item must be on your backpack.
-			src.sysmessage @<def.fail>,,1 Предмет должен находится в вашем рюкзаке.
+			src.sysmessage @<def.fail>,,1 物品必须在您的背包中.
 		enddo
 		return 1
 	endif
@@ -75,13 +75,13 @@ On=@DClick
 	if (<cont.topobj> != <src>)
 		doswitch <src.f_LangShowNum>
 			src.sysmessage @<def.fail>,,1 The item must be on your backpack.
-			src.sysmessage @<def.fail>,,1 Предмет должен находится в вашем рюкзаке.
+			src.sysmessage @<def.fail>,,1 物品必须在您的背包中.
 		enddo
 		return 1
 	elseif !((<ref1.isowner <src>>) || (<ref1.getcoownerpos <src>> >= 0) || (<src.isgm>))
 		doswitch <src.f_LangShowNum>
 			src.sysmessage @<def.fail>,,1 Only owner and co-owners can change items locations!
-			src.sysmessage @<def.fail>,,1 Только собственник и совладельцы могут менять предметы.
+			src.sysmessage @<def.fail>,,1 只有所有者和共有人可以更改房屋位置.
 		enddo
 		return 1
 	elseif !(<TAG0.MODE>)
@@ -110,25 +110,25 @@ On=@TargOn_Item
 		if (<ref1> != <TAG0.HOUSE>) || !(<src.f_house_isInside>)
 			doswitch <src.f_LangShowNum>
 				src.sysmessage @<def.fail>,,1 You should be located in the region of the house.
-				src.sysmessage @<def.fail>,,1 Вы должны находится на территории дома.
+				src.sysmessage @<def.fail>,,1 您应位于房屋所在区域.
 			enddo
 			return 1
 		elseif (<argo.cont>) || (<argo.region.uid> != <TAG0.HOUSE>) || !(<argo.f_house_isInside>)
 			doswitch <src.f_LangShowNum>
 				src.sysmessage @<def.fail>,,1 The item should be located in the region of the house.
-				src.sysmessage @<def.fail>,,1 Предмет должен находится на территории дома.
+				src.sysmessage @<def.fail>,,1 项目应位于房屋所在区域.
 			enddo
 			return 1
 		elseif !(<argo.isevent.ei_house_lockdown>)
 			doswitch <src.f_LangShowNum>
 				src.sysmessage @<def.fail>,,1 The item should be locked.
-				src.sysmessage @<def.fail>,,1 Предмет должен быть закреплен.
+				src.sysmessage @<def.fail>,,1 物品应锁定.
 			enddo
 			return 1
 		elseif !(<ref1.owner> == <src>)
 			doswitch <src.f_LangShowNum>
 				src.sysmessage @<def.fail>,,1 The item should be located in the region of your house.
-				src.sysmessage @<def.fail>,,1 Предмет должен находится на территории вашего дома.
+				src.sysmessage @<def.fail>,,1 该物品应位于您的住宅区域内.
 			enddo
 			return 1
 		else
@@ -137,7 +137,7 @@ On=@TargOn_Item
 				if !(<argo.flip>)
 					doswitch <src.f_LangShowNum>
 						src.sysmessage @<def.fail>,,1 You can not flip it!
-						src.sysmessage @<def.fail>,,1 Этот предмет невозможно повернуть.
+						src.sysmessage @<def.fail>,,1 不能翻转.
 					enddo
 				else
 					argo.flip
@@ -147,7 +147,7 @@ On=@TargOn_Item
 				if (<eval(<argo.p.z>-<argo.tag.startedz>)> >= 15)
 					doswitch <src.f_LangShowNum>
 						src.sysmessage @<def.fail>,,1 This item can not go upper!
-						src.sysmessage @<def.fail>,,1 Этот предмет невозможно поднять выше.
+						src.sysmessage @<def.fail>,,1 此物品不能上架.
 					enddo
 				else
 					argo.nudgeup
@@ -157,7 +157,7 @@ On=@TargOn_Item
 				if (<eval(<argo.p.z>-<argo.tag.startedz>)> <= 0)
 					doswitch <src.f_LangShowNum>
 						src.sysmessage @<def.fail>,,1 This item can not go lower!
-						src.sysmessage @<def.fail>,,1 Этот предмет невозможно опустить ниже.
+						src.sysmessage @<def.fail>,,1 此物品不能再低了.
 					enddo
 				else
 					argo.nudgedown
