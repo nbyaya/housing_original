@@ -1569,6 +1569,7 @@ ONBUTTON=0
 
 ONBUTTON=1
 	src.dialogclose d_house_menu
+	ref1 = <tag0.sign> //sign
 	if <ref1.isvalid>
 		ref1.name = <argtxt[1]>
 		ref2 = <ref1.link>
@@ -1584,9 +1585,6 @@ ONBUTTON=1
 			ref1.timer = -1
 			ref1.attr = 010
 		endif
-	else
-		ref1.timer = -1
-		ref1.attr = 010
 	endif
 	resendtooltip 1,0
 	sdialog d_house_menu 4
